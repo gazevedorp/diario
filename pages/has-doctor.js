@@ -93,7 +93,7 @@ export default function Login() {
                                     <option>{states[0].label}</option>
                                     {
                                         states.filter(item => item.value !== "").map(item => (
-                                            <option>{item.value}</option>
+                                            <option key={item.value}>{item.value}</option>
                                         ))
                                     }
                                 </InputSelect>
