@@ -29,7 +29,7 @@ export default function Splash() {
     <Container>
       <DivText>
         <Text>O DIÁRIO DA ENXAQUECA É UM APLICATIVO</Text>
-        <Text>QUE POSSÚI FUNCIONALIDADES QUE PODEM</Text>
+        <Text>QUE POSSUI FUNCIONALIDADES QUE PODEM</Text>
         <Text>TE AJUDAR A VIVER COM MAIS BEM-ESTAR:</Text>
       </DivText>
       <DivSlider>
