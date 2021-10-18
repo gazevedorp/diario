@@ -15,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
       <Head>
         <title>Diário da Enxaqueca</title>
         <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="apple-touch-icon" type="image/png" href="favicon.png" />
       </Head>
       <Component {...pageProps} />
       <GlobalStyle />
