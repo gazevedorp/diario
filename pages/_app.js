@@ -14,6 +14,7 @@ const MyApp = ({ Component, pageProps }) => {
     <ThemeProvider theme={theme}>
       <Head>
         <title>Diário da Enxaqueca</title>
+        <link rel="/manifest" href="manifest.json" />
         <link rel="icon" type="image/png" href="favicon.png" />
         <link rel="apple-touch-icon" type="image/png" href="favicon.png" />
       </Head>
