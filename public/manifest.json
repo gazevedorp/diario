@@ -1,6 +1,6 @@
 {
-    "name": "Next PWA demo",
-    "short_name": "Next PWA",
+    "name": "Diário da Enxaqueca",
+    "short_name": "Diário da Enxaqueca",
     "icons": [
       {
         "src": "/favicon.png",

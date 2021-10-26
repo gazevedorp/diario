@@ -1,4 +1,4 @@
-import Document from 'next/document'
+import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -26,5 +26,22 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+  render() {
+    return (
+      <Html>
+        <Head>
+          <title>Diário da Enxaqueca</title>
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="icon" type="image/png" href="/favicon.png" />
+          <link rel="apple-touch-icon" type="image/png" href="/favicon.png" />
+          <meta name="theme-color" content="#fff" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
