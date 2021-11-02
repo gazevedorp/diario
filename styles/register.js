@@ -168,8 +168,8 @@ export const DivImage = styled.div`
 `;
 
 export const Image = styled.img`
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
 `;
 
 export const ErrorLabel = styled.p`
