@@ -22,7 +22,7 @@ export default function Menu() {
             <Sidebar classes="menu" isCollapsed={false}>
                 < Item classes="menu-item"
                     onClick={() => setMenuOpen()}>
-                    <Icon><img src="fechar.png" className="item-image" /></Icon>
+                    <Icon><img src="Fechar.png" className="item-image" /></Icon>
                     Fechar
                 </Item >
                 <Item classes="menu-item"
