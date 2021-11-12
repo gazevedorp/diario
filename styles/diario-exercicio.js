@@ -45,12 +45,11 @@ export const HeaderPageTitle = styled.p`
 `
 
 export const HeaderPageImage = styled.img`
-    margin-top: 20px;
-    width: 250px;
+    width: 200px;
 `
 
 export const ContentStep = styled.div`
-    height: 350px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,7 +75,69 @@ export const ContentStep = styled.div`
 `
 
 export const ContentStepTwo = styled.div`
-    height: 350px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+    overflow: hidden;
+
+    h2{
+        margin-top: 15px;
+        color: #7f30af;
+        text-align: center;
+    }
+    div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    div label{
+        color: #7f30af;
+    }
+    div label input{
+        padding: 0px;
+        font-size: 18px;
+        border: 0px;
+        width: 50px;
+        border-bottom: 1px solid gray;
+    }
+
+    @media(max-width: 600px) {
+        width: 80vw;
+    }
+`
+
+export const ContentStepThree = styled.div`
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+    overflow: hidden;
+    
+    h2{
+        color: #7f30af;
+        text-align: center;
+    }
+    p{
+        color: #7f30af;
+        font-weight: 400;
+        font-size: 14px;
+        text-align: center;
+        color: gray;
+    }
+    input{
+        color: #7f30af;
+        font-weight: 600;
+    }
+    @media(max-width: 600px) {
+        width: 80vw;
+    }
+`
+
+export const ContentStepFour = styled.div`
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,8 +169,8 @@ export const ContentStepTwo = styled.div`
     }
 `
 
-export const ContentStepThree = styled.div`
-    height: 350px;
+export const ContentStepFive = styled.div`
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -127,71 +188,24 @@ export const ContentStepThree = styled.div`
         text-align: center;
         color: gray;
     }
-    input{
-        color: #7f30af;
-        font-weight: 600;
-    }
-    @media(max-width: 600px) {
-        width: 80vw;
-    }
-`
-
-export const ContentStepFour = styled.div`
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow-y: scroll;
-    overflow: hidden;
-    
-    div{
+    label{
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-    }
-    h2{
+        justify-content: space-between;
+        align-items: center;
         color: #7f30af;
-        text-align: center;
-    }
-    h4{
-        padding: 10px;
-        color: #7f30af;
+        font-weight: 400;
         font-size: 14px;
-        cursor: pointer;
+        height: 35px;
+        width: 125px;
+        margin-left: auto;
+        margin-right: auto;
     }
-    button{
-        width: 30%;
-        padding: 5px;
-        margin: 5px;
-        border: 0px;
-        border-bottom: 1px solid gray;
-        color: #7f30af;
-        background-color: transparent;
-    }
-    input{
-        width: 30%;
-        padding: 5px;
-        margin: 5px;
-        border: 0px;
-        border-bottom: 1px solid gray;
-        color: #7f30af;
-    }
-    input::placeholder { color: #7f30af; }
-    select{
-        width: 30%;
-        padding: 5px;
-        margin: 5px;
-        border: 0px;
-        border-bottom: 1px solid gray;
-        color: #7f30af;
-    }
-    select::placeholder { color: #7f30af; }
     @media(max-width: 600px) {
         width: 80vw;
     }
 `
 
-export const ContentStepFive = styled.div`
+export const ContentStepSix = styled.div`
     width: 80vw;
     height: 200px;
     display: flex;

@@ -106,13 +106,16 @@ export default function DiarioAlimentacao() {
 
     const searchFoods = async () => {
         const { data } = await api.get(`food-search/?term=${inputSearch}`);
+        console.log(data)
         setFoods(data)
     }
 
     const formaterString = value => {
         var temp = parseISO(value);
-        temp = format(temp, 'dd MMMM', { locale: ptBR });
-        return temp.toUpperCase()
+        var temp1 = format(temp, 'dd', { locale: ptBR });
+        var temp2 = format(temp, 'MMMM', { locale: ptBR });
+        temp2 = temp2.substring(0, 3).toUpperCase();
+        return `${temp1} ${temp2}`
     }
 
     const ChangeStepContinue = () => {
@@ -136,7 +139,7 @@ export default function DiarioAlimentacao() {
                     toast.warning("Informe a hora de início!")
                 break;
             case 4:
-                if (foodRegister.length > 0){
+                if (foodRegister.length > 0) {
                     setStep(5);
                     setTextButton(["SALVAR", "VOLTAR"]);
                 }
@@ -210,6 +213,7 @@ export default function DiarioAlimentacao() {
                                 name="FoodType"
                                 type="radio"
                                 value="Café da manhã"
+                                checked={type === "Café da manhã"}
                                 onClick={e => setType(e.target.value)} /> Café da manhã
                         </label>
                         <label >
@@ -217,6 +221,7 @@ export default function DiarioAlimentacao() {
                                 name="FoodType"
                                 type="radio"
                                 value="Almoço"
+                                checked={type === "Almoço"}
                                 onClick={e => setType(e.target.value)} /> Almoço
                         </label>
                         <label >
@@ -224,6 +229,7 @@ export default function DiarioAlimentacao() {
                                 name="FoodType"
                                 type="radio"
                                 value="Lanche"
+                                checked={type === "Lanche"}
                                 onClick={e => setType(e.target.value)} /> Lanche
                         </label>
                         <label >
@@ -231,6 +237,7 @@ export default function DiarioAlimentacao() {
                                 name="FoodType"
                                 type="radio"
                                 value="Jantar"
+                                checked={type === "Jantar"}
                                 onClick={e => setType(e.target.value)} /> Jantar
                         </label>
                         <label >
@@ -238,6 +245,7 @@ export default function DiarioAlimentacao() {
                                 name="FoodType"
                                 type="radio"
                                 value="Ceia"
+                                checked={type === "Ceia"}
                                 onClick={e => setType(e.target.value)} /> Ceia
                         </label>
                     </ContentStepTwo>
@@ -300,10 +308,18 @@ export default function DiarioAlimentacao() {
                             foodRegister.map(item =>
                                 <div key={item} style={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between' }}>
                                     <p>{item.foodSelected} </p>
-                                    <p>{item.qty}{item.unit}</p>
+                                    <p style={{ textAlign: "right" }}>{item.qty} {item.unit}</p>
                                 </div>
                             )
                         }
+                        <p>Você ingeriu:</p>
+                        <div className="footer">
+                            <button onClick={() => window.location.reload()}>DELETAR</button>
+                            <button onClick={() => {
+                                setStep(2);
+                                setTextButton(["PRÓXIMO", "VOLTAR"]);
+                            }}>ALTERAR</button>
+                        </div>
                     </ContentStepFive>
                 }
                 <Buttons>
@@ -334,6 +350,9 @@ export default function DiarioAlimentacao() {
                                 <p key={item.name} onClick={() => {
                                     setFoodSelected(item.name);
                                     setIsOpen(false);
+                                    if (item.flag) {
+                                        toast.error(`${item.name} Este alimento pode ser um gatilho para causar dores de cabeça. Fique atento e converse sobre este assunto com seu médico e/ou nutricionista.`)
+                                    }
                                 }
                                 }>{item.name}</p>
                             )

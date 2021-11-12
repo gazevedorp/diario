@@ -27,16 +27,27 @@ export default function HomeScreen() {
                 <MenuButton />
             </Header>
             <ContainerOptions>
-                <Option onClick={() => Router.push("diario-dor")} src="diario-dor.png"/>
+                <Option
+                    onClick={() => Router.push("diario-dor")}
+                    src="diario-dor.png"
+                />
                 <Option src="buscar-medico.png" />
-                <Option onClick={() => Router.push("diario-alimentacao")} src="diario-alimentacao.png" />
-                <Option src="diario-exercicio.png" />
+                <Option
+                    onClick={() => Router.push("diario-alimentacao")}
+                    src="diario-alimentacao.png"
+                />
+                <Option
+                    onClick={() => Router.push("diario-exercicio")}
+                    src="diario-exercicio.png"
+                />
                 <Option src="redes-sociais.png" />
                 <Option src="videos.png" />
             </ContainerOptions>
             <Buttons>
                 <Button>LEMBRETES</Button>
-                <Button>RELATÓRIOS</Button>
+                <Button
+                    onClick={() => Router.push("relatorios")}
+                >RELATÓRIOS</Button>
                 <Button>VISUALIZAR</Button>
             </Buttons>
         </Container>
