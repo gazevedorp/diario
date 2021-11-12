@@ -25,7 +25,8 @@ import {
     ButtonSend,
     DivMenuOptions,
     Option,
-    DivChart
+    DivChart,
+    DivOptions
 } from '../styles/relatorios'
 
 export default function Relatorios() {
@@ -55,25 +56,27 @@ export default function Relatorios() {
     return (
         <>
             <Container>
-                <Menu />
-                <Header>
-                    <BackButton onClick={() => Router.back()}>
-                        <BackButtonImage src="/back.png" />
-                    </BackButton>
-                    <MenuButton />
-                </Header>
-                <HeaderPage>
-                    <HeaderPageTitle>
-                        RELATÓRIOS
-                    </HeaderPageTitle>
-                    <HeaderPageImage src="/relatorios-logo.png" />
-                </HeaderPage>
-                <DivMenuOptions>
-                    <Option checked={option === 1} onClick={() => setOption(1)}>LOCALIZAÇÃO</Option>
-                    <Option checked={option === 2} onClick={() => setOption(2)}>SINTOMAS</Option>
-                    <Option checked={option === 3} onClick={() => setOption(3)}>NUTRIÇÃO</Option>
-                    <Option checked={option === 4} onClick={() => setOption(4)}>EXERCÍCIOS</Option>
-                </DivMenuOptions>
+                <DivOptions>
+                    <Menu />
+                    <Header>
+                        <BackButton onClick={() => Router.back()}>
+                            <BackButtonImage src="/back.png" />
+                        </BackButton>
+                        <MenuButton />
+                    </Header>
+                    <HeaderPage>
+                        <HeaderPageTitle>
+                            RELATÓRIOS
+                        </HeaderPageTitle>
+                        <HeaderPageImage src="/relatorios-logo.png" />
+                    </HeaderPage>
+                    <DivMenuOptions>
+                        <Option checked={option === 1} onClick={() => setOption(1)}>LOCALIZAÇÃO</Option>
+                        <Option checked={option === 2} onClick={() => setOption(2)}>SINTOMAS</Option>
+                        <Option checked={option === 3} onClick={() => setOption(3)}>NUTRIÇÃO</Option>
+                        <Option checked={option === 4} onClick={() => setOption(4)}>EXERCÍCIOS</Option>
+                    </DivMenuOptions>
+                </DivOptions>
                 <DivChart>
                     <Line data={data} options={options} />
                 </DivChart>

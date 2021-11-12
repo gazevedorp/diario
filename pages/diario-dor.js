@@ -411,8 +411,8 @@ export default function DiarioDor() {
                                 </div>
                             )
                         }
-                        <p>Desencadeantes: <b>{triggerEffect ? triggerEffect : "Não"}</b></p>
-                        <p>Medicamentos na crise: <b>{drugName ? drugName : "Não"}</b></p>
+                        <p>Desencadeantes: <b>{ trigger && triggerEffect ? triggerEffect : trigger ? "Sim" : "Não"}</b></p>
+                        <p>Medicamentos na crise: <b>{drug && drugName ? drugName : drug ? "Sim" : "Não"}</b></p>
                         <p>Resultado: <b>{result}</b></p>
                         <div className="footer">
                             <button onClick={() => window.location.reload()}>DELETAR</button>

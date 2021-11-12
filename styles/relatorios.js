@@ -111,3 +111,15 @@ export const DivChart = styled.div`
         width: 50vw;
     }
 `;
+
+export const DivOptions = styled.div`
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media(min-width: 800px) {
+        width: 50vw;
+    }
+`;
