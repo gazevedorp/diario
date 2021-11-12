@@ -128,6 +128,7 @@ export const ContentStepThree = styled.div`
         color: gray;
     }
     input{
+        width: 100%;
         color: #7f30af;
         font-weight: 600;
     }

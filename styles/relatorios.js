@@ -91,7 +91,7 @@ export const DivMenuOptions = styled.div`
 
 export const Option = styled.button`
     padding: 10px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: ${props => props.checked ? "bold" : "regular"};
     margin: 1px;
     background-color: #ffffff;
