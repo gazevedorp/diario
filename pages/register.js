@@ -28,7 +28,8 @@ import {
     Buttons,
     Button,
     TextModal,
-    ButtonModal
+    ButtonModal,
+    DivTermsText
 } from '../styles/register'
 
 const validationSchema = Yup.object({
@@ -57,6 +58,8 @@ export default function Register() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [termsContent, setTermsContent] = useState("")
     const [terms, setTerms] = useState(false);
+    const [messages, setMessages] = useState(false);
+    const [notify, setNotify] = useState(false);
 
     useEffect(() => {
         onInit();
@@ -191,6 +194,28 @@ export default function Register() {
                 </DivForm>
                 <DivInf>
                     <DivTerms>
+                        <DivTermsText>
+                            <CheckTerms
+                                notify
+                                type="checkbox"
+                                onChange={() => setNotify(!notify)}
+                                checked={notify}
+                            />
+                            <LabelTerms>
+                                Eu autorizo receber da "Allergan" comunicações sobre seus produtos, serviços, pesquisas, eventos, programas e outras informações que possam ser de interesse para mim usando as informações de contato que forneço. Posso retirar meu consentimento a qualquer momento.
+                            </LabelTerms>
+                        </DivTermsText>
+                        <DivTermsText>
+                            <CheckTerms
+                                messages
+                                type="checkbox"
+                                onChange={() => setMessages(!messages)}
+                                checked={messages}
+                            />
+                            <LabelTerms>
+                                Eu concordo em receber mensagens de texto recoorrentes de "Allergan", incluindo atualizações de serviços e mensagens de marketing, para o número acima. Podem ser aplicadas taxas de dados e mensagens. Não sou obrigado a consentir ou fornecer meu consentimento como condição para receber quaisquer bens ou serviços.
+                            </LabelTerms>
+                        </DivTermsText>
                         <LabelTerms onClick={() => terms ? setTerms(false) : setIsOpen(true)}>
                             <CheckTerms
                                 type="checkbox"

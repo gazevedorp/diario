@@ -94,6 +94,11 @@ export const DivInf = styled.div`
 `;
 
 export const DivTerms = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
     width: 100%;
     padding-left: 15px;
     padding-bottom: 25px;
@@ -103,15 +108,25 @@ export const DivTerms = styled.div`
     }
 `;
 
+export const DivTermsText = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+`;
+
 export const LabelTerms = styled.a`
-    font-size: 14px;
+    margin-bottom: 10px;
+    font-size: 12px;
     cursor: pointer;
+    text-align: justify;
+    margin-right: 15px;
 
     color: #ffffff;
 `;
 
 export const CheckTerms = styled.input`
-    width: 20px;
+    width: ${props => props.notify ? 70 : props.messages ? 90 : 20}px;
     height: 20px;
     margin-right: 10px;
     cursor: pointer;

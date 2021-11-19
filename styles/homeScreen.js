@@ -99,3 +99,34 @@ export const Button = styled.button`
 
     background-color: transparent;
 `;
+
+export const ViewModal = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    div{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+    }
+    div button {
+        margin-bottom: 10px;
+        background-color: transparent;
+        border: 0px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+    p{
+        font-size: 12px;
+    }
+
+    @media(min-width: 700px) {
+        p{
+        text-align: center;
+        }
+    }
+`
