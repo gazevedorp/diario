@@ -76,7 +76,7 @@ export default function HomeScreen() {
                     <div>
                         <button onClick={() => setModal(false)}>FECHAR X</button>
                     </div>
-                    <p>Como parte do compromisso da Allergan com sua privacidade e proteção de dados, estamos publicando um Aviso de Privacidade revisado, levando em consideração a nova Lei Geral de Proteção de Dados (LGPD), isso pode ser acessado através  do seguinte link: <a href="https://www.abbvie.com.br/privacy.html" target="_blank">Aviso de privacidade da Allergan</a></p>
+                    <p>Como parte do compromisso da Allergan com sua privacidade e proteção de dados, estamos publicando um Aviso de Privacidade revisado, levando em consideração a nova Lei Geral de Proteção de Dados (LGPD), isso pode ser acessado através  do seguinte link: <a href="https://www.abbvie.com.br/privacy.html" target="_blank"  rel="noopener noreferrer">Aviso de privacidade da Allergan</a></p>
                     <br />
                     <p>Nosso aviso de privacidade permite que você saiba como a Allergan protege e usa seus dados pessoais, seus direitos de privacidade e nossos dados de contato, caso você tenha alguma dúvida.</p>
                 </ViewModal>
