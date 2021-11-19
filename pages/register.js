@@ -195,23 +195,25 @@ export default function Register() {
                 <DivInf>
                     <DivTerms>
                         <DivTermsText>
+                            <div>
                             <CheckTerms
-                                notify
                                 type="checkbox"
                                 onChange={() => setNotify(!notify)}
                                 checked={notify}
                             />
+                            </div>
                             <LabelTerms>
                                 Eu autorizo receber da "Allergan" comunicações sobre seus produtos, serviços, pesquisas, eventos, programas e outras informações que possam ser de interesse para mim usando as informações de contato que forneço. Posso retirar meu consentimento a qualquer momento.
                             </LabelTerms>
                         </DivTermsText>
                         <DivTermsText>
+                            <div>
                             <CheckTerms
-                                messages
                                 type="checkbox"
                                 onChange={() => setMessages(!messages)}
                                 checked={messages}
                             />
+                            </div>
                             <LabelTerms>
                                 Eu concordo em receber mensagens de texto recoorrentes de "Allergan", incluindo atualizações de serviços e mensagens de marketing, para o número acima. Podem ser aplicadas taxas de dados e mensagens. Não sou obrigado a consentir ou fornecer meu consentimento como condição para receber quaisquer bens ou serviços.
                             </LabelTerms>

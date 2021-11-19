@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -126,7 +126,7 @@ export const LabelTerms = styled.a`
 `;
 
 export const CheckTerms = styled.input`
-    width: ${props => props.notify ? 70 : props.messages ? 90 : 20}px;
+    width: 20px;
     height: 20px;
     margin-right: 10px;
     cursor: pointer;
