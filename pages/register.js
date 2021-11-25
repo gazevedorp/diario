@@ -97,8 +97,9 @@ export default function Register() {
                     const { data } = await api.post('/signup', values)
 
                     if (data.status === "success") {
-                        console.log("Token: ", data.token)
-                        Router.push('/has-doctor')
+                        console.log("Token: ", data.token);
+                        Router.push('/has-doctor');
+                        localStorage.setItem("Token", data.token);
                     }
 
                     return Promise.resolve(data)
@@ -196,11 +197,11 @@ export default function Register() {
                     <DivTerms>
                         <DivTermsText>
                             <div>
-                            <CheckTerms
-                                type="checkbox"
-                                onChange={() => setNotify(!notify)}
-                                checked={notify}
-                            />
+                                <CheckTerms
+                                    type="checkbox"
+                                    onChange={() => setNotify(!notify)}
+                                    checked={notify}
+                                />
                             </div>
                             <LabelTerms>
                                 Eu autorizo receber da "Allergan" comunicações sobre seus produtos, serviços, pesquisas, eventos, programas e outras informações que possam ser de interesse para mim usando as informações de contato que forneço. Posso retirar meu consentimento a qualquer momento.
@@ -208,11 +209,11 @@ export default function Register() {
                         </DivTermsText>
                         <DivTermsText>
                             <div>
-                            <CheckTerms
-                                type="checkbox"
-                                onChange={() => setMessages(!messages)}
-                                checked={messages}
-                            />
+                                <CheckTerms
+                                    type="checkbox"
+                                    onChange={() => setMessages(!messages)}
+                                    checked={messages}
+                                />
                             </div>
                             <LabelTerms>
                                 Eu concordo em receber mensagens de texto recoorrentes de "Allergan", incluindo atualizações de serviços e mensagens de marketing, para o número acima. Podem ser aplicadas taxas de dados e mensagens. Não sou obrigado a consentir ou fornecer meu consentimento como condição para receber quaisquer bens ou serviços.
