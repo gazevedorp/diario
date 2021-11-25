@@ -50,9 +50,6 @@ const api = () => {
       if (typeof error.response != 'undefined') {
         if (error.response.status == 401) {
           console.log(error)
-          if (typeof window !== 'undefined') {
-            token = localStorage.removeItem("Token");
-          }
         }
       }
       return Promise.reject(error);
