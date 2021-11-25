@@ -111,5 +111,6 @@ export const Description = styled.p`
 
 export const DivText = styled.div`
     margin-top: 250px;
+    padding-bottom: 30px;
     width: 90vw;
 `
