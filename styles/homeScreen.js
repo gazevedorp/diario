@@ -69,7 +69,8 @@ export const ContainerOptions = styled.div`
 `
 
 export const Option = styled.img`
-    width: 45%;
+    width: 150px;
+    height: 150px;
     margin: 5px;
     cursor: pointer;
 
