@@ -1,4 +1,5 @@
 import React, {
+    useEffect,
     useState
 } from 'react';
 import Router from 'next/router';
@@ -30,7 +31,22 @@ const customStyles = {
 
 export default function HomeScreen() {
 
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
+
+    useEffect(() => {
+        onInit();
+    })
+
+    const onInit = () => {
+        if (typeof window !== 'undefined') {
+            const modalTemp = localStorage.getItem("Consentimento");
+
+            if (modalTemp !== "true") {
+                setModal(true);
+            }
+        }
+
+    }
 
     return (
         <Container>
@@ -73,9 +89,12 @@ export default function HomeScreen() {
             >
                 <ViewModal>
                     <div>
-                        <button onClick={() => setModal(false)}>FECHAR X</button>
+                        <button onClick={() => {
+                            localStorage.setItem("Consentimento", "true");
+                            setModal(false)
+                        }}>FECHAR X</button>
                     </div>
-                    <p>Como parte do compromisso da Allergan com sua privacidade e proteção de dados, estamos publicando um Aviso de Privacidade revisado, levando em consideração a nova Lei Geral de Proteção de Dados (LGPD), isso pode ser acessado através  do seguinte link: <a href="https://www.abbvie.com.br/privacy.html" target="_blank"  rel="noopener noreferrer">Aviso de privacidade da Allergan</a></p>
+                    <p>Como parte do compromisso da Allergan com sua privacidade e proteção de dados, estamos publicando um Aviso de Privacidade revisado, levando em consideração a nova Lei Geral de Proteção de Dados (LGPD), isso pode ser acessado através  do seguinte link: <a href="https://www.abbvie.com.br/privacy.html" target="_blank" rel="noopener noreferrer">Aviso de privacidade da Allergan</a></p>
                     <br />
                     <p>Nosso aviso de privacidade permite que você saiba como a Allergan protege e usa seus dados pessoais, seus direitos de privacidade e nossos dados de contato, caso você tenha alguma dúvida.</p>
                 </ViewModal>
