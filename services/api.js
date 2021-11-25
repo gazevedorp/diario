@@ -33,6 +33,13 @@ const api = () => {
           console.log("Token: ", token)
           config.headers.common['Authorization'] = `bearer ${token}`;
         }
+        else {
+          if (typeof window !== 'undefined') {
+            token = await localStorage.getItem("Token");
+            config.headers.common['Authorization'] = `bearer ${token}`;
+            console.log("Token: ", token)
+          }
+        }
 
         return config;
       },
