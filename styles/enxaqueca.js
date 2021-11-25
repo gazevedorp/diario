@@ -46,72 +46,8 @@ export const HeaderPageTitle = styled.p`
 
 export const HeaderPageImage = styled.img`
     margin-top: 20px;
-    width: 150px;
+    width: 100px;
 `
-
-export const DivButtons = styled.div`
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @media(min-width: 800px) {
-        width: 50vw;
-    }
-`;
-
-export const ButtonDate = styled.button`
-    width: 75%;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    color: #7a0025;
-    border: 1px solid #7a0025;
-    cursor: pointer;
-`
-
-export const ButtonSend = styled.button`
-    width: 95%;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    color: #7a0025;
-    border: 1px solid #7a0025;
-    cursor: pointer;
-`
-
-export const DivMenuOptions = styled.div`
-    width: 90vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-`
-
-export const Option = styled.button`
-    padding: 10px;
-    font-size: 10px;
-    font-weight: ${props => props.checked ? "bold" : "regular"};
-    margin: 1px;
-    background-color: #ffffff;
-    border: 1px solid #7f30af;
-    color: #7f30af;
-    border-bottom: ${props => props.checked ? "5px solid #713093" : ""};
-    cursor: pointer;
-`
-
-export const DivChart = styled.div`
-    width: 95vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @media(min-width: 800px) {
-        width: 50vw;
-    }
-`;
 
 export const DivOptions = styled.div`
     width: 100vw;
@@ -120,7 +56,60 @@ export const DivOptions = styled.div`
     justify-content: center;
     align-items: center;
 
+    background-color: #ffffff;
+
+    position: fixed;
+
     @media(min-width: 800px) {
         width: 50vw;
     }
 `;
+
+
+export const DivMenuOptions = styled.div`
+    width: 100vw;
+    display: flex;
+    overflow-x: scroll;
+    white-space: nowrap;
+
+    @media(min-width: 800px) {
+        overflow-x: hidden;
+        justify-content: center;
+    }
+`
+
+export const Option = styled.button`
+    display: inline-block;
+    padding: 10px;
+    font-size: 10px;
+    font-weight: ${props => props.checked ? "bold" : "regular"};
+    margin: 1px;
+    background-color: #ffffff;
+    border: 1px solid gray;
+    color: #7f30af;
+    border-bottom: ${props => props.checked ? "5px solid #713093" : ""};
+    cursor: pointer;
+`
+
+export const Title = styled.p`
+    width: auto;
+    display: inline-block;
+    padding: 2px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #713093;
+    margin-bottom: 20px;
+`
+
+export const Description = styled.p`
+    font-size: 10px;
+    color: #7f30af;
+    text-align: justify;
+    white-space: pre-line;
+`
+
+export const DivText = styled.div`
+    margin-top: 250px;
+    width: 90vw;
+`

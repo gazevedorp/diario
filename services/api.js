@@ -1,6 +1,9 @@
+import React, { useEffect } from "react"
 import axios from "axios";
 import qs from "qs";
+
 const SERVER_URL = "https://api.diariodaenxaqueca.com.br/api"
+
 
 const createAxiosInstance = () =>
   axios.create({
@@ -9,69 +12,106 @@ const createAxiosInstance = () =>
     headers: { 'Content-Type': 'application/json' }
   });
 
+var token = ""
+
 const api = () => {
-   const axiosInstance = createAxiosInstance();
 
-   const attachTokenInterceptor = instance => {
-      instance.interceptors.request.use(
-        async config => {
-          config.headers = config.headers || {};
+  const axiosInstance = createAxiosInstance();
 
-          return config;
-        },
-        error => {
-          return Promise.reject(error);
+  const attachTokenInterceptor = async instance => {
+
+    if (typeof window !== 'undefined') {
+      token = await localStorage.getItem("Token");
+      console.log("Token: ", token)
+    }
+
+    instance.interceptors.request.use(
+      async config => {
+        config.headers = config.headers || {};
+
+        if (token) {
+          console.log("Token: ", token)
+          config.headers.common['Authorization'] = `bearer ${token}`;
         }
-      );
-    };
 
-    const checkUnauthorized = (instance) => {
-      instance.interceptors.response.use((response) => {
-        return response;
-      }, async (error) => {
-        
-        if (typeof error.response != 'undefined') {
-          if ( error.response.status == 401 ) {
-            console.log(error)
-            //const token = await getStorage(STORAGE_TOKEN);
-            //removeStorage(token);
-            //NavigationService.navigate('Initial')
+        return config;
+      },
+      error => {
+        return Promise.reject(error);
+      }
+    );
+  };
+
+  const checkUnauthorized = (instance) => {
+    instance.interceptors.response.use((response) => {
+      return response;
+    }, async (error) => {
+
+      if (typeof error.response != 'undefined') {
+        if (error.response.status == 401) {
+          console.log(error)
+          if (typeof window !== 'undefined') {
+            token = localStorage.removeItem("Token");
           }
         }
-        return Promise.reject(error);
-      });
-    };
- 
-   attachTokenInterceptor(axiosInstance);
-   checkUnauthorized(axiosInstance);
- 
-   return {
-     get: (url, params) => {
-       // url = url[0]=="/"?url.substring(1):url;
-       const query = qs.stringify(params, { addQueryPrefix: true });
-       console.log('api.get', `${SERVER_URL}${url}`, `${query}`);
-       let _data = axiosInstance.get(`${url}${query}`);
-       console.log(_data);
-       return _data
+      }
+      return Promise.reject(error);
+    });
+  };
+
+  attachTokenInterceptor(axiosInstance);
+  checkUnauthorized(axiosInstance);
+
+  return {
+    get: (url, params) => {
+      url = url[0] == "/" ? url.substring(1) : url;
+      const query = qs.stringify(params, { addQueryPrefix: true });
+      console.log('api.get', `${SERVER_URL}${url}`, `${query}`);
+      let _data = axiosInstance.get(`${url}${query}`);
+      console.log(_data);
+      return _data
+    },
+    post: (url, data) => {
+      console.log('api.post', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
+      return axiosInstance.post(url, data)
+    },
+    delete: (url) => {
+      console.log('api.delete', `${SERVER_URL}${url}`);
+      return axiosInstance.delete(url)
+    },
+    put: (url, data) => {
+      console.log('api.put', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
+      return axiosInstance.put(url, data)
+    },
+    patch: (url, data) => {
+      console.log('api.patch', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
+      return axiosInstance.patch(url, data)
+    }
+  };
+};
+
+export default api();
+
+/*
+const api = async () => {
+ const axiosInstance = createAxiosInstance();
+
+ const token = "";
+
+ const attachTokenInterceptor = instance => {
+   instance.interceptors.request.use(
+     async config => {
+       config.headers = config.headers || {};
+
+       if (token) {
+         config.headers.common['Authorization'] = `bearer ${token}`;
+       }
+
+       return config;
      },
-     post: (url, data) => {
-       console.log('api.post', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
-       return axiosInstance.post(url, data)
-     },
-     delete: (url) => {
-       console.log('api.delete', `${SERVER_URL}${url}`);
-       return axiosInstance.delete(url)
-     },
-     put: (url, data) => {
-       console.log('api.put', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
-       return axiosInstance.put(url, data)
-     },
-     patch: (url, data) => {
-       console.log('api.patch', `${SERVER_URL}${url}`, `${JSON.stringify(data)}`);
-       return axiosInstance.patch(url, data)
+     error => {
+       return Promise.reject(error);
      }
-   };
+   );
  };
- 
- export default api();
- 
+ */

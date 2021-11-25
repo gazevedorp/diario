@@ -33,23 +33,43 @@ export default function Menu() {
                     <Icon><img src="home.png" className="item-image" /></Icon>
                     HOME
                 </Item>
-                <Item classes="menu-item">
+                <Item classes="menu-item"
+                    onClick={() => {
+                        Router.push('/enxaqueca');
+                        setMenuOpen();
+                    }}>
                     <Icon><img src="a-enxaqueca.png" className="item-image" /></Icon>
                     A ENXAQUECA
                 </Item>
-                <Item classes="menu-item">
+                <Item classes="menu-item"
+                    onClick={() => {
+                        Router.push('/diario');
+                        setMenuOpen();
+                    }}>
                     <Icon><img src="diario-da-enxaqueca.png" className="item-image" /></Icon>
                     O DIÁRIO DA ENXAQUECA
                 </Item>
-                <Item classes="menu-item">
+                <Item classes="menu-item"
+                    onClick={() => {
+                        Router.push('/perguntas');
+                        setMenuOpen();
+                    }}>
                     <Icon><img src="perguntas-frequentes.png" className="item-image" /></Icon>
                     PERGUNTAS FREQUENTES
                 </Item>
-                <Item classes="menu-item">
+                <Item classes="menu-item"
+                    onClick={() => {
+                        //Router.push('/perfil');
+                        //setMenuOpen();
+                    }}>
                     <Icon><img src="meu-perfil.png" className="item-image" /></Icon>
                     MEU PERFIL
                 </Item>
-                <Item classes="menu-item">
+                <Item classes="menu-item"
+                    onClick={() => {
+                        Router.push('/termos');
+                        setMenuOpen();
+                    }}>
                     <Icon><img src="termo-de-uso.png" className="item-image" /></Icon>
                     TERMOS DE USO
                 </Item>

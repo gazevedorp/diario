@@ -43,9 +43,11 @@ export default function Login() {
         onSubmit: async values => {
             try {
                 const { data } = await api.post('/auth', { email: values.email, password: values.password });
-                if (data) { 
+                if (data) {
                     console.log("Token: ", data.access_token)
                     Router.push('/homeScreen')
+                    localStorage.setItem("Token", data.access_token);
+
                 }
             }
             catch (e) {
