@@ -4,6 +4,8 @@ import React, {
 } from 'react';
 import Router from 'next/router';
 
+import { useUserState } from '../services/userState';
+
 import Menu from '../components/menu';
 import MenuButton from '../components/menu-button';
 import Modal from 'react-modal';
@@ -31,6 +33,7 @@ const customStyles = {
 
 export default function HomeScreen() {
 
+    const { voucher } = useUserState();
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
@@ -44,6 +47,8 @@ export default function HomeScreen() {
             if (modalTemp !== "true") {
                 setModal(true);
             }
+
+            console.log(voucher)
         }
 
     }
@@ -62,7 +67,7 @@ export default function HomeScreen() {
                     onClick={() => Router.push("diario-dor")}
                     src="diario-dor.png"
                 />
-                <Option src="buscar-medico.png" />
+                <Option src={voucher ? "vencedor.png" : "buscar-medico.png"} />
                 <Option
                     onClick={() => Router.push("diario-alimentacao")}
                     src="diario-alimentacao.png"

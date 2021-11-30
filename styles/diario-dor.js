@@ -218,7 +218,6 @@ export const ContentStepFive = styled.div`
 
 export const ContentStepSix = styled.div`
     width: 80vw;
-    height: 200px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -285,6 +284,7 @@ export const Buttons = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: ${props => props.marginBottom ? 20 : 0}px;
 `
 
 export const Button = styled.button`

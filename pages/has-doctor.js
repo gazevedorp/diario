@@ -1,9 +1,12 @@
 import React, {
+    useEffect,
     useState
 } from 'react';
 import Router from 'next/router';
 
+import api from '../services/api';
 import { states } from '../utils/states';
+import { useUserState } from '../services/userState';
 
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -27,16 +30,49 @@ import {
 
 export default function Login() {
 
+    const { user, setUser, setVoucher } = useUserState();
     const [hasDoctor, setHasDoctor] = useState(null);
-    const [crm, setCrm] = useState();
-    const [state, setState] = useState();
+    const [crm, setCrm] = useState("");
+    const [state, setState] = useState("");
 
-    const handleSubmit = () => {
+    useEffect(() => {
+        onInit();
+    }, [])
+
+    const onInit = async () => {
+        console.log(user)
+    }
+
+    const handleSubmit = async () => {
         if (hasDoctor && crm && state) {
-            //Chamada API
-            Router.push('/homeScreen')
+
+            //const { data } = await api.post('/signup', {
+            //     
+            //})
+
+            try {
+                const { data } = await api.put('/perfil', { name: user.name, email: user.email, ddd: user.ddd, celular: user.mobile, crm: crm, state: state });
+                if (data) {
+                    setVoucher(true);
+                    Router.push('/homeScreen')
+                }
+            }
+            catch (e) {
+                if (!e.response) {
+                    const error = 'Verifique sua conexão com a internet!'
+                    return Promise.reject(error)
+                }
+                else {
+                    const { data } = e.response
+                    if (data.message) {
+                        console.log(data.message)
+                        toast.error(data.message);
+                    }
+                }
+            }
         }
         else if (!hasDoctor) {
+            setVoucher(false);
             Router.push('/homeScreen')
         }
         else {

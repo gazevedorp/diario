@@ -31,6 +31,8 @@ import {
     ButtonModal,
     DivTermsText
 } from '../styles/register'
+import { useUserState } from '../services/userState';
+import Login from './has-doctor';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Campo obrigatório'),
@@ -79,6 +81,7 @@ export default function Register() {
         setTermsContent(response.data.content);
     }
 
+    const { setUser, user } = useUserState();
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
             name: '',
@@ -97,9 +100,7 @@ export default function Register() {
                     const { data } = await api.post('/signup', values)
 
                     if (data.status === "success") {
-                        console.log("Token: ", data.token);
-                        Router.push('/has-doctor');
-                        localStorage.setItem("Token", data.token);
+                        handleLogin(values);
                     }
 
                     return Promise.resolve(data)
@@ -131,6 +132,23 @@ export default function Register() {
             }
         },
     });
+
+    const handleLogin = async (values) => {
+        try {
+            const { data } = await api.post('/auth', { email: values.email, password: values.password });
+
+            if (data) {
+                setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
+                console.log("Token: ", data.access_token);
+                localStorage.setItem("Token", data.access_token);
+                Router.push('/has-doctor');
+            }
+        }
+        catch {
+            const error = 'Verifique sua conexão com a internet!'
+            return Promise.reject(error)
+        }
+    }
 
     return (
         <>

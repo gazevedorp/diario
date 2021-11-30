@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 
 import api from '../services/api';
+import { useUserState } from '../services/userState';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { useFormik } from 'formik';
@@ -34,6 +35,7 @@ const validationSchema = Yup.object({
 
 export default function Login() {
 
+    const { setUser, user, setVoucher } = useUserState();
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
             email: '',
@@ -44,10 +46,17 @@ export default function Login() {
             try {
                 const { data } = await api.post('/auth', { email: values.email, password: values.password });
                 if (data) {
+                    setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
                     console.log("Token: ", data.access_token)
-                    Router.push('/homeScreen')
                     localStorage.setItem("Token", data.access_token);
-
+                    if (data.doctor) {
+                        setVoucher(true);
+                        Router.push('/homeScreen')
+                    }
+                    else {
+                        setVoucher(false);
+                        Router.push('/homeScreen')
+                    }
                 }
             }
             catch (e) {
@@ -61,6 +70,7 @@ export default function Login() {
                     toast.error("Usuário ou senha inválidos!");
                 }
             }
+            console.log(user)
         },
     });
 

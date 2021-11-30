@@ -6,6 +6,7 @@ import Router from 'next/router';
 
 import { parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import api from '../services/api';
 
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -60,11 +61,12 @@ export default function DiarioDor() {
     const [drug, setDrug] = useState("");
     const [drugName, setDrugName] = useState("");
     const [result, setResult] = useState("");
+    const [newId, setNewId] = useState("")
 
     const [modalTrigger, setModalTrigger] = useState(false);
     const [modalDrug, setModalDrug] = useState(false);
 
-    const ChangeStepContinue = () => {
+    const ChangeStepContinue = async () => {
         switch (step) {
             case 1:
                 setTextButton(["PRÓXIMO", "VOLTAR"]);
@@ -99,9 +101,111 @@ export default function DiarioDor() {
                     toast.warning("Você deve informar qual foi o resultado!")
                 }
                 else {
+
+                    var date = `${data} ${hour[0]}`
+                    var data_inicio = `${data} ${hour[0]}`
+                    var data_fim = `${data} ${hour[1]}`
+
+                    try {
+                        if (!newId) {
+                            const { data } = await api.post('/dor', {
+                                date: date,
+                                start_time: data_inicio,
+                                end_time: data_fim,
+                                config: {
+                                    pain_location: {
+                                        date: date,
+                                        pain_location: {
+                                            lateral_direito: option1,
+                                            lateral_esquerdo: option2,
+                                            testa_topo_cranio: option3,
+                                            frontal_nuca: option4,
+                                            frontal_atras_olho: option5,
+                                            posterior_cabeca: option6
+                                        }
+                                    },
+                                    symptoms: {
+                                        esforco_piora: symptom.filter(item => item === "Esforço piora").length > 0 ? true : false,
+                                        peso_aperto: symptom.filter(item => item === "Peso/aperto").length > 0 ? true : false,
+                                        latejante: symptom.filter(item => item === "Latejante").length > 0 ? true : false,
+                                        nauseas: symptom.filter(item => item === "Náuseas").length > 0 ? true : false,
+                                        vomito: symptom.filter(item => item === "Vômito").length > 0 ? true : false,
+                                        luz_piora: symptom.filter(item => item === "Luz piora").length > 0 ? true : false,
+                                        barulho_piora: symptom.filter(item => item === "Barulho piora").length > 0 ? true : false,
+                                        aura: symptom.filter(item => item === "Aura").length > 0 ? true : false,
+                                        menstruacao: symptom.filter(item => item === "Menstruação").length > 0 ? true : false,
+                                    },
+                                    triggers: trigger && triggerEffect !== "" ? triggerEffect : trigger,
+                                    medicine_in_crisis: drug && drugName !== "" ? drugName : drug,
+                                    result: result
+                                }
+                            }
+                            );
+                            if (data){
+                            setNewId(data.data.id)
+                            toast.success("Seu registro de dor foi adicionado com sucesso!");
+                            console.log(data)
+                            }
+                        }
+                        else {
+                            const { data } = await api.put(`/dor/${newId}`, {
+                                date: date,
+                                start_time: data_inicio,
+                                end_time: data_fim,
+                                config: {
+                                    pain_location: {
+                                        date: date,
+                                        pain_location: {
+                                            lateral_direito: option1,
+                                            lateral_esquerdo: option2,
+                                            testa_topo_cranio: option3,
+                                            frontal_nuca: option4,
+                                            frontal_atras_olho: option5,
+                                            posterior_cabeca: option6
+                                        }
+                                    },
+                                    symptoms: {
+                                        esforco_piora: symptom.filter(item => item === "Esforço piora").length > 0 ? true : false,
+                                        peso_aperto: symptom.filter(item => item === "Peso/aperto").length > 0 ? true : false,
+                                        latejante: symptom.filter(item => item === "Latejante").length > 0 ? true : false,
+                                        nauseas: symptom.filter(item => item === "Náuseas").length > 0 ? true : false,
+                                        vomito: symptom.filter(item => item === "Vômito").length > 0 ? true : false,
+                                        luz_piora: symptom.filter(item => item === "Luz piora").length > 0 ? true : false,
+                                        barulho_piora: symptom.filter(item => item === "Barulho piora").length > 0 ? true : false,
+                                        aura: symptom.filter(item => item === "Aura").length > 0 ? true : false,
+                                        menstruacao: symptom.filter(item => item === "Menstruação").length > 0 ? true : false,
+                                    },
+                                    triggers: trigger && triggerEffect !== "" ? triggerEffect : trigger,
+                                    medicine_in_crisis: drug && drugName !== "" ? drugName : drug,
+                                    result: result
+                                }
+                            }
+                            );
+                            if (data){
+                            console.log(data)
+                            toast.success("Seu registro de dor foi alterado com sucesso!");
+                            }
+                        }
+                    }
+                    catch (e) {
+                        if (!e.response) {
+                            const error = 'Verifique sua conexão com a internet!'
+                            return Promise.reject(error)
+                        }
+                        else {
+                            const { data } = e.response
+                            if (data.message) {
+                                console.log(data.message)
+                                toast.error(data.message);
+                            }
+                        }
+                    }
+
                     setStep(6);
-                    setTextButton(["SALVAR", "VOLTAR"]);
+                    setTextButton(["ADICIONAR"]);
                 }
+            case 6:
+                //window.location.reload()
                 break;
         }
     }
@@ -132,6 +236,8 @@ export default function DiarioDor() {
         }
     }
 
+
+
     const formaterString = value => {
         var temp = parseISO(value);
         var temp1 = format(temp, 'dd', { locale: ptBR });
@@ -161,6 +267,28 @@ export default function DiarioDor() {
         }
         else {
             return false
+        }
+    }
+
+    const handleDelete = async () => {
+        try {
+            const { data } = await api.delete(`/dor/${newId}`);
+            if (data.status === "success") {
+                window.location.reload();
+            }
+        }
+        catch (e) {
+            if (!e.response) {
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+            else {
+                const { data } = e.response
+                if (data.message) {
+                    console.log(data.message)
+                    toast.error("Tente novamente mais tarde!");
+                }
+            }
         }
     }
 
@@ -200,8 +328,8 @@ export default function DiarioDor() {
                         <br />
                         <input value={data} onChange={e => setData(e.target.value)} type="date" />
                         <p>SELECIONE HORA DE INÍCIO E FIM</p>
-                        <input value={hour[0]} onChange={e => setHour([e.target.value, hour[1]])} type="time" />
-                        <input value={hour[1]} onChange={e => setHour([hour[0], e.target.value])} type="time" />
+                        <input step="2" value={hour[0]} onChange={e => setHour([e.target.value, hour[1]])} type="time" />
+                        <input step="2" value={hour[1]} onChange={e => setHour([hour[0], e.target.value])} type="time" />
                     </ContentStepTwo>
                 }
                 {step === 3 &&
@@ -411,11 +539,19 @@ export default function DiarioDor() {
                                 </div>
                             )
                         }
-                        <p>Desencadeantes: <b>{ trigger && triggerEffect ? triggerEffect : trigger ? "Sim" : "Não"}</b></p>
+                        <p>Desencadeantes: <b>{trigger && triggerEffect ? triggerEffect : trigger ? "Sim" : "Não"}</b></p>
                         <p>Medicamentos na crise: <b>{drug && drugName ? drugName : drug ? "Sim" : "Não"}</b></p>
                         <p>Resultado: <b>{result}</b></p>
                         <div className="footer">
-                            <button onClick={() => window.location.reload()}>DELETAR</button>
+                            <button onClick={() => {
+                                var answer = window.confirm("Deseja realmente remover esse registro?");
+                                if (answer) {
+                                    handleDelete();
+                                }
+                                else {
+                                    //some code
+                                }
+                            }}>DELETAR</button>
                             <button onClick={() => {
                                 setStep(2);
                                 setTextButton(["PRÓXIMO", "VOLTAR"]);
@@ -423,19 +559,21 @@ export default function DiarioDor() {
                         </div>
                     </ContentStepSix>
                 }
-                <Buttons>
+                <Buttons marginBottom={!textButton[1]}>
                     <Button
                         backgroundColor="#7a0025"
                         color="white"
                         onClick={ChangeStepContinue}>
                         {textButton[0]}
                     </Button>
-                    <Button
-                        backgroundColor="white"
-                        color="black"
-                        onClick={ChangeStepBack}>
-                        {textButton[1]}
-                    </Button>
+                    {textButton[1] &&
+                        <Button
+                            backgroundColor="white"
+                            color="black"
+                            onClick={ChangeStepBack}>
+                            {textButton[1]}
+                        </Button>
+                    }
                 </Buttons>
             </Container>
             <Modal
