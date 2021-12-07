@@ -43,7 +43,6 @@ export default function HomeScreen() {
     const onInit = () => {
         if (typeof window !== 'undefined') {
             const modalTemp = localStorage.getItem("Consentimento");
-
             if (modalTemp !== "true") {
                 setModal(true);
             }
@@ -84,7 +83,9 @@ export default function HomeScreen() {
                 <Button
                     onClick={() => Router.push("relatorios")}
                 >RELATÓRIOS</Button>
-                <Button>VISUALIZAR</Button>
+                <Button
+                    onClick={() => Router.push("calendario")}
+                >VISUALIZAR</Button>
             </Buttons>
             <Modal
                 isOpen={modal}

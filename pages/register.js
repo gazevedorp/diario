@@ -3,6 +3,9 @@ import Router from 'next/router';
 
 import api from '../services/api';
 
+
+import { useUserState } from '../services/userState';
+
 import Modal from 'react-modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -31,8 +34,6 @@ import {
     ButtonModal,
     DivTermsText
 } from '../styles/register'
-import { useUserState } from '../services/userState';
-import Login from './has-doctor';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Campo obrigatório'),
@@ -100,6 +101,7 @@ export default function Register() {
                     const { data } = await api.post('/signup', values)
 
                     if (data.status === "success") {
+                        localStorage.setItem("Token", data.token);
                         handleLogin(values);
                     }
 
@@ -140,7 +142,6 @@ export default function Register() {
             if (data) {
                 setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
                 console.log("Token: ", data.access_token);
-                localStorage.setItem("Token", data.access_token);
                 Router.push('/has-doctor');
             }
         }

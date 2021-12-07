@@ -59,8 +59,8 @@ export default function Menu() {
                 </Item>
                 <Item classes="menu-item"
                     onClick={() => {
-                        //Router.push('/perfil');
-                        //setMenuOpen();
+                        Router.push('/perfil');
+                        setMenuOpen();
                     }}>
                     <Icon><img src="meu-perfil.png" className="item-image" /></Icon>
                     MEU PERFIL
