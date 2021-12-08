@@ -79,6 +79,7 @@ export default function Register() {
     const onInit = async () => {
         const response = await api.get("terms-of-use");
         setTermsContent(response.data.content);
+        localStorage.removeItem("Token");
     }
 
     const { setUser, user } = useUserState();
