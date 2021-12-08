@@ -46,7 +46,7 @@ export default function Login() {
             try {
                 const { data } = await api.post('/auth', { email: values.email, password: values.password });
                 if (data) {
-                    setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
+                    setUser({ id: data.id, name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
                     console.log("Token: ", data.access_token)
                     localStorage.setItem("Token", data.access_token);
                     if (data.doctor) {

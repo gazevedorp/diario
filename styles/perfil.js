@@ -75,6 +75,7 @@ export const Input = styled.input`
     border-bottom-width: 1px;
     outline: none;
     font-size: 16px;
+    padding: 0px;
     
     color: #ffffff;
     background-color: transparent;
@@ -215,4 +216,20 @@ export const ButtonDelete = styled.button`
     font-weight: bold;
     border: 0px;
     cursor: pointer;
+`;
+
+export const InputSelect = styled.select`
+    border-width: 0px;
+    border-bottom-width: 1px;
+    outline: none;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 5px;
+
+    option {
+       color: #000000;
+   }
+
+    background-color: transparent;
+    border-color: #ffffff;
 `;

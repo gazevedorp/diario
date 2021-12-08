@@ -95,27 +95,3 @@ const api = () => {
 };
 
 export default api();
-
-/*
-const api = async () => {
- const axiosInstance = createAxiosInstance();
-
- const token = "";
-
- const attachTokenInterceptor = instance => {
-   instance.interceptors.request.use(
-     async config => {
-       config.headers = config.headers || {};
-
-       if (token) {
-         config.headers.common['Authorization'] = `bearer ${token}`;
-       }
-
-       return config;
-     },
-     error => {
-       return Promise.reject(error);
-     }
-   );
- };
- */

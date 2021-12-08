@@ -208,7 +208,6 @@ export const ContentStepFive = styled.div`
 
 export const ContentStepSix = styled.div`
     width: 80vw;
-    height: 200px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -240,7 +239,7 @@ export const ContentStepSix = styled.div`
 
     .footer button{
         margin-top: 5px;
-        width: 50%;
+        width: 100%;
         padding: 10px;
         background-color: white;
         cursor: pointer;

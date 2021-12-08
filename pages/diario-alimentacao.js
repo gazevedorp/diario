@@ -7,6 +7,7 @@ import Router from 'next/router';
 import api from '../services/api'
 import { parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useUserState } from '../services/userState';
 
 import Modal from 'react-modal';
 import Menu from '../components/menu';
@@ -41,6 +42,9 @@ const customStyles = {
 };
 
 export default function DiarioAlimentacao() {
+
+    const { user } = useUserState();
+
     const [step, setStep] = useState(1);
     const [textButton, setTextButton] = useState(["ADICIONAR", "CANCELAR"]);
     const [type, setType] = useState("");
@@ -51,8 +55,10 @@ export default function DiarioAlimentacao() {
     const [foods, setFoods] = useState();
     const [qty, setQty] = useState("");
     const [foodSelected, setFoodSelected] = useState("");
+    const [idSelected, setIdSelected] = useState("");
     const [foodRegister, setFoodResgister] = useState([]);
-    const [unit, setUnit] = useState("")
+    const [unit, setUnit] = useState("");
+    const [calories, setCalories] = useState("");
 
     useEffect(() => {
         searchFoods();
@@ -100,6 +106,34 @@ export default function DiarioAlimentacao() {
         }
     ]
 
+    const typeMeal = [
+        {
+            label: 'Café da Manhã',
+            key: 'cafe_da_manha',
+            typeId: 1,
+        },
+        {
+            label: 'Almoço',
+            key: 'almoco',
+            typeId: 2
+        },
+        {
+            label: 'Lanche',
+            key: 'latejante',
+            typeId: 3
+        },
+        {
+            label: 'Jantar',
+            key: 'jantar',
+            typeId: 4
+        },
+        {
+            label: 'Ceia',
+            key: 'ceia',
+            typeId: 5
+        }
+    ];
+
     const convertUnitToString = (unit) => {
         return medidas.filter(u => u.value == unit)[0].label
     }
@@ -116,6 +150,37 @@ export default function DiarioAlimentacao() {
         var temp2 = format(temp, 'MMMM', { locale: ptBR });
         temp2 = temp2.substring(0, 3).toUpperCase();
         return `${temp1} ${temp2}`
+    }
+
+    const handleSubmit = async () => {
+
+        const typeTemp = typeMeal.filter(item => item.label === type).map(item => { return item.typeId })
+        const dateTemp = data;
+
+        try {
+            console.log(foodRegister)
+            const { data } = await api.get(`/calc?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour[0]}&calc=${JSON.stringify(foodRegister)}`)
+
+            if (data) {
+                console.log(data)
+                setCalories(data.total)
+                setIntensity(data.intensity)
+                setTextButton(["SALVAR", "VOLTAR"]);
+                setStep(6);
+            }
+
+            return Promise.resolve(data)
+        } catch (e) {
+            if (!e.response) {
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+
+            const { data } = e.response
+            if (data.message) {
+                toast.error(data.message);
+            }
+        }
     }
 
     const ChangeStepContinue = () => {
@@ -141,12 +206,14 @@ export default function DiarioAlimentacao() {
             case 4:
                 if (foodRegister.length > 0) {
                     setStep(5);
-                    setTextButton(["SALVAR", "VOLTAR"]);
+                    handleSubmit();
+                    setTextButton(["ADICIONAR"]);
                 }
                 else
                     toast.warning("Insira ao menos um alimento!")
                 break;
             case 5:
+                window.location.reload();
                 break;
         }
     }
@@ -273,7 +340,7 @@ export default function DiarioAlimentacao() {
                                 <option value="">Un.</option>
                                 {
                                     medidas.map(item =>
-                                        <option key={item.label} value={item.label}>{item.label}</option>
+                                        <option key={item.label} value={item.value}>{item.label}</option>
                                     )
                                 }
                             </select>
@@ -282,12 +349,13 @@ export default function DiarioAlimentacao() {
                             foodRegister && foodRegister.map(item =>
                                 <div key={item} style={{ padding: 10, paddingBottom: 5, paddingTop: 0, fontSize: 14, display: 'flex', flexDirection: "row", justifyContent: 'space-between' }}>
                                     <p style={{ width: 200, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{item.foodSelected}</p>
-                                    <p>{item.qty}</p>
+                                    <p>{item.m}</p>
                                 </div>)
                         }
                         <h4 onClick={() => {
                             if (qty, foodSelected, unit) {
-                                setFoodResgister([...foodRegister, { foodSelected, qty, unit }]);
+                                //id: item.idSelected, q: item.unit, m: item.qty, f: nul/
+                                setFoodResgister([...foodRegister, { id: idSelected, foodSelected, m: qty, q: unit, f: null }]);
                                 setQty("");
                                 setFoodSelected("");
                                 setUnit("");
@@ -308,17 +376,13 @@ export default function DiarioAlimentacao() {
                             foodRegister.map(item =>
                                 <div key={item} style={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between' }}>
                                     <p>{item.foodSelected} </p>
-                                    <p style={{ textAlign: "right" }}>{item.qty} {item.unit}</p>
+                                    <p style={{ textAlign: "right" }}>{item.m} {medidas.filter( i => i.value == item.q).map( i => { return i.label})}</p>
                                 </div>
                             )
                         }
-                        <p>Você ingeriu:</p>
+                        <p>Você ingeriu: {calories * 1000} calorias</p>
                         <div className="footer">
                             <button onClick={() => window.location.reload()}>DELETAR</button>
-                            <button onClick={() => {
-                                setStep(2);
-                                setTextButton(["PRÓXIMO", "VOLTAR"]);
-                            }}>ALTERAR</button>
                         </div>
                     </ContentStepFive>
                 }
@@ -349,6 +413,7 @@ export default function DiarioAlimentacao() {
                             foods.map(item =>
                                 <p key={item.name} onClick={() => {
                                     setFoodSelected(item.name);
+                                    setIdSelected(item.id)
                                     setIsOpen(false);
                                     if (item.flag) {
                                         toast.error(`${item.name} Este alimento pode ser um gatilho para causar dores de cabeça. Fique atento e converse sobre este assunto com seu médico e/ou nutricionista.`)

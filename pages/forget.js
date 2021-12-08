@@ -35,7 +35,7 @@ export default function Login() {
             <DivInf>
                 <Buttons>
                     <Button border onClick={() => Router.push('/')}>CANCELAR</Button>
-                    <Button onClick={() => Router.push('/login')}>ENTRAR</Button>
+                    <Button onClick={() => {}}>ENVIAR</Button>
                 </Buttons>
             </DivInf>
         </Container>

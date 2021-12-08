@@ -3,7 +3,6 @@ import Router from 'next/router';
 
 import api from '../services/api';
 
-
 import { useUserState } from '../services/userState';
 
 import Modal from 'react-modal';
@@ -101,7 +100,7 @@ export default function Register() {
                     const { data } = await api.post('/signup', values)
 
                     if (data.status === "success") {
-                        localStorage.setItem("Token", data.token);
+                        await localStorage.setItem("Token", data.token);
                         handleLogin(values);
                     }
 
@@ -140,7 +139,7 @@ export default function Register() {
             const { data } = await api.post('/auth', { email: values.email, password: values.password });
 
             if (data) {
-                setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
+                setUser({ id: data.id, name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
                 console.log("Token: ", data.access_token);
                 Router.push('/has-doctor');
             }

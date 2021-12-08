@@ -3,7 +3,6 @@ import Router from 'next/router';
 
 import api from '../services/api';
 
-import Calendar from 'react-awesome-calendar';
 import MenuButton from '../components/menu-button';
 import Menu from '../components/menu';
 
@@ -44,7 +43,6 @@ export default function Calendario() {
                 </HeaderPageTitle>
             </HeaderPage>
             <DivCalendar>
-                <Calendar header={() => (<></>) } />
             </DivCalendar>
         </Container>
     )

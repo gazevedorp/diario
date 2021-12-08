@@ -4,11 +4,10 @@ import React, {
 } from 'react';
 import Router from 'next/router';
 
-import { useUserState } from '../services/userState';
+import { states } from '../utils/states';
 
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
+import api from '../services/api.js';
 
 import {
     Container,
@@ -26,114 +25,114 @@ import {
     DivTerms,
     LabelTerms,
     CheckTerms,
-    ErrorLabel,
     ButtonPass,
     ButtonDelete,
     Buttons,
     Button,
-    DivTermsText
+    DivTermsText,
+    InputSelect
 } from '../styles/perfil.js'
-
-const validationSchema = Yup.object({
-    name: Yup.string().required('Campo obrigatório'),
-    email: Yup.string()
-        .email('E-mail inválido')
-        .required('Campo obrigatório'),
-    ddd: Yup.string()
-        .min(2, 'O DDD precisa ter pelo menos 2 dígitos')
-        .max(3, 'O DDD pode ter até 3 dígitos')
-        .required('Campo obrigatório'),
-    celular: Yup.string()
-        .min(9, 'O celular precisa ter pelo menos 9 dígitos')
-        .required('Campo obrigatório'),
-    password: Yup.string()
-        .min(8, 'Você precisa de 8 caracteres ou mais')
-        .required('Campo obrigatório'),
-    password_confirmation: Yup.string()
-        .min(8, 'Você precisa de 8 caracteres ou mais')
-        .oneOf([Yup.ref('password'), ''], 'As senhas devem ser iguais')
-        .required('Campo obrigatório'),
-});
 
 export default function Perfil() {
 
-    const [notify, setNotify] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [ddd, setDdd] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [crm, setCrm] = useState("");
+    const [estado, setEstado] = useState("");
+    const [notify, setNotify] = useState("");
+    const [user, setUser] = useState();
 
     useEffect(() => {
         onInit();
     }, [])
 
     const onInit = async () => {
-        console.log(user)
-    }
-
-    const { setUser, user } = useUserState();
-    const { values, handleChange, handleSubmit, errors, touched } = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            ddd: '',
-            celular: '',
-            crm: '',
-            estado: ''
-        },
-        validationSchema,
-        onSubmit: async values => {
-            if (terms) {
-                console.log(JSON.stringify(values, null, 2));
-                try {
-                    const { data } = await api.post('/signup', values)
-
-                    if (data.status === "success") {
-                        localStorage.setItem("Token", data.token);
-                        handleLogin(values);
-                    }
-
-                    return Promise.resolve(data)
-                } catch (e) {
-                    if (!e.response) {
-                        const error = 'Verifique sua conexão com a internet!'
-                        return Promise.reject(error)
-                    }
-
-                    const { data } = e.response
-                    if (data.message) {
-                        return Promise.reject(data.message)
-                    }
-
-                    const errors = Object.keys(data.errors).reduce((prev, curr) => {
-                        return {
-                            ...prev,
-                            [curr]: prev[curr][0]
-                        }
-                    }, data.errors)
-
-                    toast.error("Este email já está sendo utilizado!");
-                    return Promise.reject(errors)
-                }
-            }
-            else {
-                console.log("Error: ", error)
-                toast.error("Você precisa aceitar os termos de uso!");
-            }
-        },
-    });
-
-    const handleLogin = async (values) => {
         try {
-            const { data } = await api.post('/auth', { email: values.email, password: values.password });
+            const { data } = await api.post("/me")
 
             if (data) {
-                setUser({ name: data.name, email: data.email, ddd: data.contact.ddd, mobile: data.contact.mobile })
-                console.log("Token: ", data.access_token);
-                Router.push('/has-doctor');
+                console.log(data)
+                setName(data.name)
+                setEmail(data.email)
+                setDdd(data.ddd)
+                setMobile(data.celular)
+                setEstado(data.doctor_state)
+                setCrm(data.crm)
+            }
+
+            return Promise.resolve(data)
+        } catch (e) {
+            if (!e.response) {
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+
+            const { data } = e.response
+            if (data.message) {
+                return Promise.reject(data.message)
             }
         }
-        catch {
-            const error = 'Verifique sua conexão com a internet!'
-            return Promise.reject(error)
+    }
+
+    const handleSubmit = async () => {
+        try {
+            const { data } = await api.put("perfil", {
+                name: name,
+                email: email,
+                ddd: ddd,
+                celular: mobile,
+                crm: crm,
+                state: estado
+            })
+
+            if (data) {
+                console.log(data)
+                toast.success("Dados alterados com sucesso!");
+            }
+
+            return Promise.resolve(data)
+        } catch (e) {
+            if (!e.response) {
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+
+            const { data } = e.response
+            if (data.message) {
+                toast.error(data.message);
+            }
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const { data } = await api.delete("/user/delete")
+            if (data) {
+                console.log(data)
+                toast.success("Conta excluída com sucesso!");
+                setTimeout(() => {
+                    localStorage.removeItem("Token")
+                    Router.push("/login")
+                }, 5000)
+            }
+
+            return Promise.resolve(data)
+        } catch (e) {
+            if (!e.response) {
+                toast.error("Tente novamente mais tarde!");
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+
+            const { data } = e.response
+            if (data.message) {
+                toast.error(data.message);
+            }
         }
     }
+
 
     return (
         <>
@@ -148,35 +147,31 @@ export default function Perfil() {
                     <InputTitle>SEU NOME</InputTitle>
                     <Input
                         name="name"
-                        onChange={handleChange}
-                        values={values.name}
+                        onChange={e => setName(e.target.value)}
+                        value={name}
                     />
-                    {errors.name && touched.name ? <ErrorLabel>{errors.name}</ErrorLabel> : null}
                     <InputTitle>E-MAIL</InputTitle>
                     <Input
                         name="email"
-                        onChange={handleChange}
-                        values={values.email}
+                        onChange={e => setEmail(e.target.value)}
+                        value={email}
                     />
-                    {errors.email && touched.email ? <ErrorLabel>{errors.email}</ErrorLabel> : null}
                     <DivTel>
                         <DivDdd>
                             <InputTitle>DDD</InputTitle>
                             <Input
                                 name="ddd"
-                                onChange={handleChange}
-                                values={values.ddd}
+                                onChange={e => setDdd(e.target.value)}
+                                value={ddd}
                             />
-                            {errors.ddd && touched.ddd ? <ErrorLabel>{errors.ddd}</ErrorLabel> : null}
                         </DivDdd>
                         <DivCel>
                             <InputTitle>CELULAR</InputTitle>
                             <Input
                                 name="celular"
-                                onChange={handleChange}
-                                values={values.celular}
+                                onChange={e => setMobile(e.target.value)}
+                                value={mobile}
                             />
-                            {errors.celular && touched.celular ? <ErrorLabel>{errors.celular}</ErrorLabel> : null}
                         </DivCel>
                     </DivTel>
                     <DivTel>
@@ -184,19 +179,23 @@ export default function Perfil() {
                             <InputTitle>CRM</InputTitle>
                             <Input
                                 name="crm"
-                                onChange={handleChange}
-                                values={values.crm}
+                                onChange={e => setCrm(e.target.value)}
+                                value={crm}
                             />
-                            {errors.crm && touched.crm ? <ErrorLabel>{errors.crm}</ErrorLabel> : null}
                         </DivDdd>
                         <DivCel>
                             <InputTitle>ESTADO</InputTitle>
-                            <Input
-                                name="estado"
-                                onChange={handleChange}
-                                values={values.estado}
-                            />
-                            {errors.estado && touched.estado ? <ErrorLabel>{errors.estado}</ErrorLabel> : null}
+                            <InputSelect
+                                value={estado}
+                                onChange={e => setEstado(e.target.value)}
+                            >
+                                <option>{states[0].label}</option>
+                                {
+                                    states.filter(item => item.value !== "").map(item => (
+                                        <option key={item.value}>{item.value}</option>
+                                    ))
+                                }
+                            </InputSelect>
                         </DivCel>
                     </DivTel>
                 </DivForm>
@@ -216,21 +215,22 @@ export default function Perfil() {
                         </DivTermsText>
                     </DivTerms>
                     <ButtonPass
-                    onClick={() => {
-                        Router.push("/alter-password")
-                    }}
+                        onClick={() => {
+                            Router.push("/alter-password")
+                        }}
                     >REDEFINIR SENHA</ButtonPass>
                     <ButtonDelete
                         onClick={() => {
                             var answer = window.confirm("Tem certeza que deseja deletar sua conta?");
                             if (answer) {
-                                {}
+                                handleDelete();
                             }
                             else {
                                 //some code
                             }
-                        }}
-                    >DELETAR MINHA CONTA</ButtonDelete>
+                        }}>
+                        DELETAR MINHA CONTA
+                    </ButtonDelete>
                     <Buttons>
                         <Button
                             border onClick={() => Router.push('/homeScreen')}>CANCELAR</Button>

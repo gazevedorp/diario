@@ -7,6 +7,7 @@ import Router from 'next/router';
 import api from '../services/api'
 import { parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useUserState } from '../services/userState';
 
 import Menu from '../components/menu';
 import MenuButton from '../components/menu-button';
@@ -31,6 +32,9 @@ import {
 } from '../styles/diario-exercicio'
 
 export default function DiarioExercicio() {
+
+    const { user } = useUserState();
+
     const [step, setStep] = useState(1);
     const [textButton, setTextButton] = useState(["ADICIONAR", "CANCELAR"]);
     const [type, setType] = useState("");
@@ -40,6 +44,9 @@ export default function DiarioExercicio() {
     const [sex, setSex] = useState("");
     const [age, setAge] = useState("");
     const [weight, setWeight] = useState("");
+    const [calories, setCalories] = useState("");
+    const [intensity, setIntensity] = useState("");
+    const [edit, setEdity] = useState(false);
 
     useEffect(() => {
         console.log(hour)
@@ -51,6 +58,40 @@ export default function DiarioExercicio() {
         var temp2 = format(temp, 'MMMM', { locale: ptBR });
         temp2 = temp2.substring(0, 3).toUpperCase();
         return `${temp1} ${temp2}`
+    }
+
+    const handleSubmit = async () => {
+
+        const DateTemp1 = Date.parse(`${data} ${hour[0]}`)
+        const DateTemp2 = Date.parse(`${data} ${hour[1]}`)
+        const time = Math.abs(new Date(DateTemp2) - new Date(DateTemp1)) / 36e5
+        const totaltime = time * 60;
+
+        const sexTemp = sex === "Masculino" ? "male" : "female";
+        const activity = type === "Caminhada" ? 1 : type === "Corrida" ? 2 : type === "Bicicleta" ? 3 : 4;
+        try {
+            const { data } = await api.get(`/calc2?gender=${sexTemp}&age=${age}&weight=${weight}&minute=${totaltime}&activity=${activity}`)
+
+            if (data) {
+                console.log(data)
+                setCalories(data.calories)
+                setIntensity(data.intensity)
+                setTextButton(["ADICIONAR"]);
+                setStep(6);
+            }
+
+            return Promise.resolve(data)
+        } catch (e) {
+            if (!e.response) {
+                const error = 'Verifique sua conexão com a internet!'
+                return Promise.reject(error)
+            }
+
+            const { data } = e.response
+            if (data.message) {
+                toast.error(data.message);
+            }
+        }
     }
 
     const ChangeStepContinue = () => {
@@ -79,13 +120,13 @@ export default function DiarioExercicio() {
                 break;
             case 5:
                 if (exerciseWeight) {
-                    setTextButton(["SALVAR", "VOLTAR"]);
-                    setStep(6);
+                    handleSubmit()
                 }
                 else
                     toast.warning("Selecione o nível de esforço!")
                 break;
             case 6:
+                window.location.reload();
                 break;
         }
     }
@@ -266,14 +307,10 @@ export default function DiarioExercicio() {
                         <h3>{formaterString(data)}</h3>
                         <p>Período: <b>{hour[0]} - {hour[1]}</b></p>
                         <p>Tipo: <b>{type}</b></p>
-                        <p>Esforço: <b>{weight}</b></p>
-                        <p>Você percorreu:</p>
+                        <p>Esforço: <b>{exerciseWeight}</b></p>
+                        <p>Você gastou: {calories}  calorias</p>
                         <div className="footer">
                             <button onClick={() => window.location.reload()}>DELETAR</button>
-                            <button onClick={() => {
-                                setStep(2);
-                                setTextButton(["PRÓXIMO", "VOLTAR"]);
-                            }}>ALTERAR</button>
                         </div>
                     </ContentStepSix>
                 }

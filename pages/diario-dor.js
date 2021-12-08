@@ -205,7 +205,7 @@ export default function DiarioDor() {
                     setTextButton(["ADICIONAR"]);
                 }
             case 6:
-                //window.location.reload()
+                window.location.reload();
                 break;
         }
     }

@@ -75,6 +75,7 @@ export const Input = styled.input`
     border-bottom-width: 1px;
     outline: none;
     font-size: 16px;
+    padding: 0px;
     
     color: #ffffff;
     background-color: transparent;
