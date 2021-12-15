@@ -10,13 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
-    window.OneSignal = window.OneSignal || [];
-
-    OneSignal.push(function () {
-      OneSignal.init({
-        appId: "59cc2a2e-39d9-46ce-b802-7d1e10acf261",
-      });
-    });
+    console.log("teste...");
   }, []);
 
   return (
