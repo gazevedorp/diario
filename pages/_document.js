@@ -35,11 +35,6 @@ export default class MyDocument extends Document {
           <link rel="icon" type="image/png" href="/favicon.png" />
           <link rel="apple-touch-icon" type="image/png" href="/favicon.png" />
           <meta name="theme-color" content="#fff" />
-
-          <script
-            src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-            async=""
-          ></script>
         </Head>
         <body>
           <Main />
