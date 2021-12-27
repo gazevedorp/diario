@@ -35,10 +35,12 @@ export default function HomeScreen() {
 
     const { voucher } = useUserState();
     const [modal, setModal] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        setLoading(true);
         onInit();
-    })
+    }, [])
 
     const onInit = () => {
         if (typeof window !== 'undefined') {
@@ -48,10 +50,12 @@ export default function HomeScreen() {
             }
 
             console.log(voucher)
+            setLoading(false);
         }
 
     }
 
+    if(!loading)
     return (
         <Container>
             <Menu />
@@ -64,19 +68,21 @@ export default function HomeScreen() {
             <ContainerOptions>
                 <Option
                     onClick={() => Router.push("diario-dor")}
-                    src="diario-dor.png"
+                    src="Home/Diario_dor.png"
                 />
-                <Option src={voucher ? "vencedor.png" : "buscar-medico.png"} />
+                <Option src={voucher ? "Home/Prog_vencedor.png" : "Home/encontremedico.png"} />
                 <Option
                     onClick={() => Router.push("diario-alimentacao")}
-                    src="diario-alimentacao.png"
+                    src="Home/Diario_nutricao.png"
                 />
                 <Option
                     onClick={() => Router.push("diario-exercicio")}
-                    src="diario-exercicio.png"
+                    src="Home/Diario_exercicios.png"
                 />
                 <Option src="redes-sociais.png" />
-                <Option src="videos.png" />
+                <Option
+                    onClick={() => Router.push("videos")}
+                    src="Home/videos.png" />
             </ContainerOptions>
             <Buttons>
                 <Button>LEMBRETES</Button>
@@ -84,7 +90,7 @@ export default function HomeScreen() {
                     onClick={() => Router.push("relatorios")}
                 >RELATÓRIOS</Button>
                 <Button
-                    onClick={() => {/*Router.push("calendario")*/}}
+                    onClick={() => Router.push("calendario")}
                 >VISUALIZAR</Button>
             </Buttons>
             <Modal
@@ -107,4 +113,7 @@ export default function HomeScreen() {
             </Modal>
         </Container>
     )
+
+    else
+    return(<></>)
 }

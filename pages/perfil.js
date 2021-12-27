@@ -5,6 +5,7 @@ import React, {
 import Router from 'next/router';
 
 import { states } from '../utils/states';
+import { useUserState } from '../services/userState';
 
 import { ToastContainer, toast } from 'react-toastify';
 import api from '../services/api.js';
@@ -35,6 +36,7 @@ import {
 
 export default function Perfil() {
 
+    const { setVoucher } = useUserState();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [ddd, setDdd] = useState("");
@@ -90,6 +92,9 @@ export default function Perfil() {
             if (data) {
                 console.log(data)
                 toast.success("Dados alterados com sucesso!");
+                if(data.doctor){
+                    setVoucher(true);
+                }
             }
 
             return Promise.resolve(data)

@@ -6,6 +6,7 @@ import Router from 'next/router';
 
 import { parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import api from '../services/api';
 
 import { Line } from 'react-chartjs-2';
 import { ToastContainer } from 'react-toastify';
@@ -32,6 +33,17 @@ import {
 export default function Relatorios() {
 
     const [option, setOption] = useState(1)
+    const [content, setContent] = useState()
+
+    useEffect(() => {
+        onInit();
+    }, [])
+
+    const onInit = async () => {
+        const response = await api.get(`reports/chart?start_date=${format(new Date(), 'yyyy-MM-dd')}`);
+        setContent(response.data);
+        console.log(response.data)
+    }
 
     const data = {
         labels: ['1', '2', '3', '4', '5', '6'],
@@ -81,12 +93,14 @@ export default function Relatorios() {
                     <Line data={data} options={options} />
                 </DivChart>
                 <DivButtons>
+                    {/*
                     <ButtonDate>
                         ALTERAR PERÍODO
                     </ButtonDate>
                     <ButtonSend>
                         ENVIAR
                     </ButtonSend>
+                                     */}
                 </DivButtons>
             </Container>
             <ToastContainer />

@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {
+  useEffect
+} from 'react';
 import Router from 'next/router';
+
+import { getToken } from '../services/auth';
 
 import Slider from "react-slick";
 
@@ -15,6 +19,17 @@ import {
 } from '../styles/splash'
 
 export default function Splash() {
+
+  useEffect(() => {
+    onInit();
+  }, [])
+
+  const onInit = () => {
+    const token = getToken();
+    if(token){
+      Router.push("/homeScreen")
+    }
+  }
 
   const settings = {
     dots: true,

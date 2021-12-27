@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 
 import { useServiceState } from '../../services/serviceState';
+import { useUserState } from '../../services/userState';
 
 import {
     Sidebar,
@@ -15,6 +16,7 @@ import 'react-sidebar-ui/dist/index.css';
 
 export default function Menu() {
 
+    const { setVoucher, setUser } = useUserState();
     const { setMenuOpen, menuOpen } = useServiceState();
 
     if (menuOpen)
@@ -87,6 +89,9 @@ export default function Menu() {
                 <Item classes="menu-item-sair"
                     onClick={() => {
                         setMenuOpen()
+                        localStorage.removeItem("Token")
+                        setVoucher(false);
+                        setUser([]);
                         Router.push('/')
                     }}>
                     <Icon><img src="sair.png" className="item-image" /></Icon>

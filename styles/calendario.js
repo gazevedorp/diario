@@ -62,4 +62,16 @@ export const DivCalendar = styled.div`
     padding: 20px;
     margin-top: 25px;
     width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media(min-width: 600px) {
+        width: 50vw;
+    }
+`
+
+export const HeaderPageImage = styled.img`
+    margin-top: 20px;
+    width: 100px;
 `
