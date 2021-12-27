@@ -68,6 +68,34 @@ export const ContainerOptions = styled.div`
     }
 `
 
+export const OptionSocial = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999;
+
+    @media(min-width: 700px) {
+        width: 200px;
+        height: 200px;
+    }
+`
+
+export const OptionSocialImage = styled.img`
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+
+    @media(min-width: 700px) {
+        width: 100px;
+        height: 100px;
+    }
+`
+
 export const Option = styled.img`
     width: 150px;
     height: 150px;
