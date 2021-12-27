@@ -90,11 +90,11 @@ export default function Videos() {
                         <>
                             <DivText>
                                 {content.map(item =>
-                                    <DivVideos>
+                                    <DivVideos key={item.url}>
                                         <iframe src={item.url}
                                             style={{ width: "95%" }}
-                                            frameborder='0'
-                                            allowfullscreen="allowfullscreen"
+                                            frameBorder='0'
+                                            allowFullScreen="allowfullscreen"
                                         />
                                         <Title>{item.name}</Title>
                                         <Description>{item.description}</Description>
