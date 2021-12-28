@@ -141,10 +141,10 @@ export default function DiarioDor() {
                                 }
                             }
                             );
-                            if (data){
-                            setNewId(data.data.id)
-                            toast.success("Seu registro de dor foi adicionado com sucesso!");
-                            console.log(data)
+                            if (data) {
+                                setNewId(data.data.id)
+                                toast.success("Seu registro de dor foi adicionado com sucesso!");
+                                console.log(data)
                             }
                         }
                         else {
@@ -181,9 +181,9 @@ export default function DiarioDor() {
                                 }
                             }
                             );
-                            if (data){
-                            console.log(data)
-                            toast.success("Seu registro de dor foi alterado com sucesso!");
+                            if (data) {
+                                console.log(data)
+                                toast.success("Seu registro de dor foi alterado com sucesso!");
                             }
                         }
                     }
@@ -205,7 +205,6 @@ export default function DiarioDor() {
                     setTextButton(["ADICIONAR"]);
                 }
             case 6:
-                window.location.reload();
                 break;
         }
     }
@@ -563,7 +562,7 @@ export default function DiarioDor() {
                     <Button
                         backgroundColor="#7a0025"
                         color="white"
-                        onClick={ChangeStepContinue}>
+                        onClick={() => step < 6 ? ChangeStepContinue() : window.location.reload()}>
                         {textButton[0]}
                     </Button>
                     {textButton[1] &&

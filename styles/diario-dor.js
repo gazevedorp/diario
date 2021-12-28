@@ -77,6 +77,7 @@ export const ContentStep = styled.div`
 
 export const ContentStepTwo = styled.div`
     height: 350px;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,9 +173,6 @@ export const ContentStepFour = styled.div`
         width: 125px;
         margin-left: auto;
         margin-right: auto;
-    }
-    @media(max-width: 600px) {
-        width: 80vw;
     }
 `
 
@@ -295,6 +293,7 @@ export const Button = styled.button`
     color: ${props => props.color};
     background-color: ${props => props.backgroundColor};
     border: 0px;
+    cursor: pointer;
 `
 
 export const ViewModal = styled.div`

@@ -103,13 +103,11 @@ export const ContentStepTwo = styled.div`
         margin-left: auto;
         margin-right: auto;
     }
-    @media(max-width: 600px) {
-        width: 80vw;
-    }
 `
 
 export const ContentStepThree = styled.div`
     height: 350px;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;

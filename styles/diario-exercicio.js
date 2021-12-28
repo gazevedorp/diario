@@ -110,6 +110,7 @@ export const ContentStepTwo = styled.div`
 
 export const ContentStepThree = styled.div`
     height: 400px;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,9 +165,6 @@ export const ContentStepFour = styled.div`
         width: 125px;
         margin-left: auto;
         margin-right: auto;
-    }
-    @media(max-width: 600px) {
-        width: 80vw;
     }
 `
 

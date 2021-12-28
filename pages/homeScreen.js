@@ -72,7 +72,17 @@ export default function HomeScreen() {
                         onClick={() => Router.push("diario-dor")}
                         src="Home/Diario_dor.png"
                     />
-                    <Option src={voucher ? "Home/Prog_vencedor.png" : "Home/encontremedico.png"} />
+                    {voucher ?
+                        <Option
+                            src="Home/Prog_vencedor.png"
+                        />
+                        :
+                        <a href="https://enxaquecacronica.com.br/encontre-um-medico">
+                            <Option
+                                src="Home/encontremedico.png"
+                            />
+                        </a>
+                    }
                     <Option
                         onClick={() => Router.push("diario-alimentacao")}
                         src="Home/Diario_nutricao.png"
