@@ -106,8 +106,8 @@ export default function DiarioDor() {
                     console.log(hour[0])
                     console.log(hour[1])
 
-                    var data_inicio = `${data} ${hour[0]}`
-                    var data_fim = `${data} ${hour[1]}`
+                    var data_inicio = `${data} ${hour[0]}:00`
+                    var data_fim = `${data} ${hour[1]}:00`
 
                     var data_inicio_temp = format(new Date(data_inicio), "yyyy-MM-dd HH:mm:ss")
                     var data_fim_temp = format(new Date(data_fim), "yyyy-MM-dd HH:mm:ss")
@@ -118,12 +118,12 @@ export default function DiarioDor() {
                     try {
                         if (!newId) {
                             const { data } = await api.post('/dor', {
-                                date: data_inicio_temp,
-                                start_time: data_inicio_temp,
-                                end_time: data_fim_temp,
+                                date: data_inicio,
+                                start_time: data_inicio,
+                                end_time: data_fim,
                                 config: {
                                     pain_location: {
-                                        date: data_inicio_temp,
+                                        date: data_inicio,
                                         pain_location: {
                                             lateral_direito: option1,
                                             lateral_esquerdo: option2,
