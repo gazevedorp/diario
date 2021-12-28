@@ -68,8 +68,16 @@ export default function DiarioExercicio() {
         var DateTempFormat1 = new Date(DateTemp1)
         var DateTempFormat2 = new Date(DateTemp2)
 
+        console.log(DateTempFormat1)
+        console.log(DateTempFormat2)
+
         const time = Math.abs(DateTempFormat2 - DateTempFormat1) / 36e5
+        
+        console.log(time)
+        
         const totaltime = time * 60;
+
+        console.log(totaltime)
 
         const sexTemp = sex === "Masculino" ? "male" : "female";
         const activity = type === "Caminhada" ? 1 : type === "Corrida" ? 2 : type === "Bicicleta" ? 3 : 4;
