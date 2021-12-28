@@ -65,6 +65,9 @@ export default function DiarioExercicio() {
         const DateTemp1 = `${data} ${hour[0]}:00`
         const DateTemp2 = `${data} ${hour[1]}:00`
 
+        console.log(DateTemp1)
+        console.log(DateTemp2)
+
         var DateTempFormat1 = new Date(DateTemp1)
         var DateTempFormat2 = new Date(DateTemp2)
 
