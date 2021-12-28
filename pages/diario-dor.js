@@ -109,9 +109,6 @@ export default function DiarioDor() {
                     var data_inicio = `${data} ${hour[0]}:00`
                     var data_fim = `${data} ${hour[1]}:00`
 
-                    var data_inicio_temp = format(new Date(data_inicio), "yyyy-MM-dd HH:mm:ss")
-                    var data_fim_temp = format(new Date(data_fim), "yyyy-MM-dd HH:mm:ss")
-
                     alert(data_inicio_temp)
                     alert(data_fim_temp)
 
