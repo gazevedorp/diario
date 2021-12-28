@@ -68,8 +68,8 @@ export default function DiarioExercicio() {
         console.log(DateTemp1)
         console.log(DateTemp2)
 
-        var DateTempFormat1 = new Date(DateTemp1)
-        var DateTempFormat2 = new Date(DateTemp2)
+        var DateTempFormat1 = new Date(DateTemp1.replace(/ /g,"T"))
+        var DateTempFormat2 = new Date(DateTemp2.replace(/ /g,"T"))
 
         console.log(DateTempFormat1)
         console.log(DateTempFormat2)
