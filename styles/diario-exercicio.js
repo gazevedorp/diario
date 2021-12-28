@@ -165,7 +165,7 @@ export const ContentStepFour = styled.div`
         font-weight: 400;
         font-size: 14px;
         height: 35px;
-        width: 125px;
+        width: 150px;
         margin-left: auto;
         margin-right: auto;
     }
