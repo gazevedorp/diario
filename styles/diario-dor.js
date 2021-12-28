@@ -96,7 +96,7 @@ export const ContentStepTwo = styled.div`
         color: gray;
     }
     input{
-        width: 100vw;
+        width: 80vw;
         color: #7f30af;
         font-weight: 600;
     }
@@ -170,7 +170,7 @@ export const ContentStepFour = styled.div`
         font-weight: 400;
         font-size: 14px;
         height: 25px;
-        min-width: 125px;
+        width: 150px;
         margin-left: auto;
         margin-right: auto;
     }
