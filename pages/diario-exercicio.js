@@ -62,8 +62,8 @@ export default function DiarioExercicio() {
 
     const handleSubmit = async () => {
 
-        const DateTemp1 = Date.parse(`${data} ${hour[0]}`)
-        const DateTemp2 = Date.parse(`${data} ${hour[1]}`)
+        const DateTemp1 = `${data} ${hour[0]}:00`
+        const DateTemp2 = `${data} ${hour[1]}:00`
 
         alert(DateTemp1)
         alert(DateTemp2)
