@@ -77,7 +77,6 @@ export const ContentStep = styled.div`
 
 export const ContentStepTwo = styled.div`
     height: 350px;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,12 +95,15 @@ export const ContentStepTwo = styled.div`
         color: gray;
     }
     input{
-        width: 80vw;
+        width: 100%;
         color: #7f30af;
         font-weight: 600;
     }
     @media(max-width: 600px) {
         width: 80vw;
+        input{
+        width: 80vw;
+    }
     }
 `
 

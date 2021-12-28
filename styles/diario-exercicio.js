@@ -135,6 +135,9 @@ export const ContentStepThree = styled.div`
     }
     @media(max-width: 600px) {
         width: 80vw;
+        input{
+        width: 80vw;
+    }
     }
 `
 
@@ -195,7 +198,7 @@ export const ContentStepFive = styled.div`
         font-weight: 400;
         font-size: 14px;
         height: 35px;
-        width: 125px;
+        width: 150px;
         margin-left: auto;
         margin-right: auto;
     }
