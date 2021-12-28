@@ -110,7 +110,6 @@ export const ContentStepTwo = styled.div`
 
 export const ContentStepThree = styled.div`
     height: 400px;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
