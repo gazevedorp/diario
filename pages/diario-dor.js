@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import Router from 'next/router';
 
-import { parseISO, format } from 'date-fns';
+import { parseISO, format, addSeconds } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import api from '../services/api';
 
@@ -106,18 +106,18 @@ export default function DiarioDor() {
                     var data_inicio = `${data} ${hour[0]}`
                     var data_fim = `${data} ${hour[1]}`
 
-                    alert(data_inicio)
-                    alert(data_fim)
+                    var data_inicio_temp = format(new Date(data_inicio), "yyyy-MM-dd HH:mm:ss")
+                    var data_fim_temp = format(new Date(data_fim), "yyyy-MM-dd HH:mm:ss")
 
                     try {
                         if (!newId) {
                             const { data } = await api.post('/dor', {
-                                date: date,
-                                start_time: data_inicio,
-                                end_time: data_fim,
+                                date: data_inicio_temp,
+                                start_time: data_inicio_temp,
+                                end_time: data_fim_temp,
                                 config: {
                                     pain_location: {
-                                        date: date,
+                                        date: data_inicio_temp,
                                         pain_location: {
                                             lateral_direito: option1,
                                             lateral_esquerdo: option2,
@@ -152,12 +152,12 @@ export default function DiarioDor() {
                         }
                         else {
                             const { data } = await api.put(`/dor/${newId}`, {
-                                date: date,
-                                start_time: data_inicio,
-                                end_time: data_fim,
+                                date: data_inicio_temp,
+                                start_time: data_inicio_temp,
+                                end_time: data_fim_temp,
                                 config: {
                                     pain_location: {
-                                        date: date,
+                                        date: data_inicio_temp,
                                         pain_location: {
                                             lateral_direito: option1,
                                             lateral_esquerdo: option2,
@@ -330,8 +330,8 @@ export default function DiarioDor() {
                         <br />
                         <input value={data} onChange={e => setData(e.target.value)} type="date" />
                         <p>SELECIONE HORA DE INÍCIO E FIM</p>
-                        <input step="2" value={hour[0]} onChange={e => setHour([e.target.value, hour[1]])} type="time" />
-                        <input step="2" value={hour[1]} onChange={e => setHour([hour[0], e.target.value])} type="time" />
+                        <input value={hour[0]} onChange={e => setHour([e.target.value, hour[1]])} type="time" />
+                        <input value={hour[1]} onChange={e => setHour([hour[0], e.target.value])} type="time" />
                     </ContentStepTwo>
                 }
                 {step === 3 &&
