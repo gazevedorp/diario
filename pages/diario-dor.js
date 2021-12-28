@@ -102,8 +102,10 @@ export default function DiarioDor() {
                     toast.warning("Você deve informar qual foi o resultado!")
                 }
                 else {
+                    console.log(data)
+                    console.log(hour[0])
+                    console.log(hour[1])
 
-                    var date = `${data} ${hour[0]}`
                     var data_inicio = `${data} ${hour[0]}`
                     var data_fim = `${data} ${hour[1]}`
 
