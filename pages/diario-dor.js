@@ -106,6 +106,9 @@ export default function DiarioDor() {
                     var data_inicio = `${data} ${hour[0]}`
                     var data_fim = `${data} ${hour[1]}`
 
+                    alert(data_inicio)
+                    alert(data_fim)
+
                     try {
                         if (!newId) {
                             const { data } = await api.post('/dor', {

@@ -64,6 +64,10 @@ export default function DiarioExercicio() {
 
         const DateTemp1 = Date.parse(`${data} ${hour[0]}`)
         const DateTemp2 = Date.parse(`${data} ${hour[1]}`)
+
+        alert(DateTemp1)
+        alert(DateTemp2)
+
         const time = Math.abs(new Date(DateTemp2) - new Date(DateTemp1)) / 36e5
         const totaltime = time * 60;
 
