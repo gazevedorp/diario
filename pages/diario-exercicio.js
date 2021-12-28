@@ -65,10 +65,10 @@ export default function DiarioExercicio() {
         const DateTemp1 = `${data} ${hour[0]}:00`
         const DateTemp2 = `${data} ${hour[1]}:00`
 
-        alert(DateTemp1)
-        alert(DateTemp2)
+        var DateTempFormat1 = new Date(DateTemp1)
+        var DateTempFormat2 = new Date(DateTemp2)
 
-        const time = Math.abs(new Date(DateTemp2) - new Date(DateTemp1)) / 36e5
+        const time = Math.abs(DateTempFormat2 - DateTempFormat1) / 36e5
         const totaltime = time * 60;
 
         const sexTemp = sex === "Masculino" ? "male" : "female";
