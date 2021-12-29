@@ -65,4 +65,8 @@ export default createGlobalStyle`
         padding: 24px 0px 10px 10px;
         background-color: #ffffff;
     }
+    ._13dNw{
+        left: none !important;
+        right: 0 !important;
+    }
 `
