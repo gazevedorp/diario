@@ -66,7 +66,7 @@ export default createGlobalStyle`
         background-color: #ffffff;
     }
     ._13dNw{
-        left: none !important;
+        left: auto !important;
         right: 0 !important;
     }
 `
