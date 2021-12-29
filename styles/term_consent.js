@@ -137,3 +137,17 @@ export const ButtonModal = styled.button`
     border: ${props => props.border ? "1px solid" : 0}px;
     border-color: darkred;
 `;
+
+export const Description = styled.p`
+    font-size: 14px;
+    text-align: justify;
+    margin-bottom: 20px;
+    white-space: pre-line;
+`
+
+export const DescriptionTitle = styled.p`
+    font-size: 14px;
+    font-weight: bold;
+    text-align: justify;
+    margin-bottom: 20px;
+`
