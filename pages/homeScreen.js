@@ -74,6 +74,7 @@ export default function HomeScreen() {
                     />
                     {voucher ?
                         <Option
+                            onClick={() => Router.push("/term_consent")}
                             src="Home/Prog_vencedor.png"
                         />
                         :

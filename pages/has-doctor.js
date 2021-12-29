@@ -28,7 +28,7 @@ import {
     ButtonNoDoctor
 } from '../styles/has-doctor'
 
-export default function Login() {
+export default function HasDoctor() {
 
     const { user, setUser, setVoucher } = useUserState();
     const [hasDoctor, setHasDoctor] = useState(null);
