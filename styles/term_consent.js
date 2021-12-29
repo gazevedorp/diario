@@ -148,6 +148,5 @@ export const Description = styled.p`
 export const DescriptionTitle = styled.p`
     font-size: 14px;
     font-weight: bold;
-    text-align: justify;
     margin-bottom: 20px;
 `
