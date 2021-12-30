@@ -21,6 +21,7 @@ import {
     Buttons,
     Button,
     ViewModal,
+    ModalPwaText
 } from '../styles/homeScreen'
 
 const customStyles = {
@@ -33,16 +34,38 @@ const customStyles = {
     },
 };
 
+const customStylesPwa = {
+    content: {
+        top: "auto",
+        bottom: 20,
+        left: 20,
+        right: 20,
+        height: 90,
+        borderRadius: 30,
+    },
+};
+
 export default function HomeScreen() {
 
     const { voucher } = useUserState();
     const [modal, setModal] = useState(false);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [modalPwa, setModalPwa] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         onInit();
     }, [])
+
+
+    // Detects if device is on iOS 
+    const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+    }
+    // Detects if device is in standalone mode
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
 
     const onInit = () => {
         if (typeof window !== 'undefined') {
@@ -53,6 +76,15 @@ export default function HomeScreen() {
 
             console.log(voucher)
             setLoading(false);
+
+            // Checks if should display install popup notification:
+            if (isIos() && !isInStandaloneMode()) {
+                console.log("ios")
+                setModalPwa(true)
+            }
+            else {
+                console.log("no-ios")
+            }
         }
 
     }
@@ -152,6 +184,16 @@ export default function HomeScreen() {
                         <br />
                         <p>Nosso aviso de privacidade permite que você saiba como a Allergan protege e usa seus dados pessoais, seus direitos de privacidade e nossos dados de contato, caso você tenha alguma dúvida.</p>
                     </ViewModal>
+                </Modal>
+                <Modal
+                    isOpen={modalPwa}
+                    onRequestClose={() => setModalPwa(false)}
+                    style={customStylesPwa}
+                    contentLabel="Example Modal"
+                >
+                    <ModalPwaText>
+                        Para Instalar o webapp em seu iPhone selecione <img src="option-pwa.png" /> e selecione a opção Add to Home Screen
+                    </ModalPwaText>
                 </Modal>
             </Container>
         )

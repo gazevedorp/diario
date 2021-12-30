@@ -159,3 +159,15 @@ export const ViewModal = styled.div`
         }
     }
 `
+
+export const ModalPwaText = styled.p`
+    text-align: center;
+    font-size: 11px;
+    width: 100%;
+
+    img {
+        margin-bottom: -10px;
+        width: 30px;
+        height: 30px;
+    }
+`;
