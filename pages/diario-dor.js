@@ -91,7 +91,6 @@ export default function DiarioDor() {
                     toast.warning("Você precisa selecionar pelo menos um sintoma!")
                 break;
             case 5:
-                alert("submit")
                 if (trigger === "") {
                     toast.warning("Você deve informar se houve algum desencadeante!")
                 }
