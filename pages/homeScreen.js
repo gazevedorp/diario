@@ -161,7 +161,7 @@ export default function HomeScreen() {
                 <Buttons>
                     <Button>LEMBRETES</Button>
                     <Button
-                        onClick={() => Router.push("relatorios")}
+                        onClick={() => /*Router.push("relatorios")*/{}}
                     >RELATÓRIOS</Button>
                     <Button
                         onClick={() => Router.push("calendario")}
