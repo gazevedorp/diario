@@ -262,7 +262,7 @@ export default function Calendario() {
                         item.config.pain_location.testa_topo_cranio === 3 ? forte.push("Testa/topo do crânio") : {}
 
                         return (
-                            <div style={{ paddingTop: 10, cursor: "pointer" }} onClick={() => {
+                            <div key={item} style={{ paddingTop: 10, cursor: "pointer" }} onClick={() => {
                                 setPainSelected(item)
                                 Router.push("diario-dor")
                             }}>
@@ -281,7 +281,7 @@ export default function Calendario() {
                                             <div style={{ marginBottom: 10, display: "flex", flexDirection: "row", alignItems: "center" }}>
                                                 <div style={{ marginTop: 2, marginBottomt: 2, width: 10, height: 10, backgroundColor: "green", borderRadius: 30 }} />
                                                 <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", }}>
-                                                    {leve && leve.map(item2 => <p style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
+                                                    {leve && leve.map(item2 => <p key={item2} style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
                                                 </div>
                                             </div>
                                             :
@@ -298,7 +298,7 @@ export default function Calendario() {
                                             <div style={{ marginBottom: 10, display: "flex", flexDirection: "row", alignItems: "center" }}>
                                                 <div style={{ marginTop: 2, marginBottomt: 2, width: 10, height: 10, backgroundColor: "darkorange", borderRadius: 30 }} />
                                                 <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", }}>
-                                                    {moderada && moderada.map(item2 => <p style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
+                                                    {moderada && moderada.map(item2 => <p key={item2} style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
                                                 </div>
                                             </div>
                                             :
@@ -315,7 +315,7 @@ export default function Calendario() {
                                             <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                                                 <div style={{ marginTop: 2, marginBottomt: 2, width: 10, height: 10, backgroundColor: "red", borderRadius: 30 }} />
                                                 <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", }}>
-                                                    {forte && forte.map(item2 => <p style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
+                                                    {forte && forte.map(item2 => <p key={item2} style={{ marginLeft: 2, fontSize: 14 }}>{item2},</p>)}
                                                 </div>
                                             </div>
                                             :
