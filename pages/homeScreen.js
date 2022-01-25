@@ -5,6 +5,7 @@ import React, {
 import Router from 'next/router';
 
 import { useUserState } from '../services/userState';
+import { useServiceState } from '../services/serviceState';
 
 import Menu from '../components/menu';
 import MenuButton from '../components/menu-button';
@@ -47,6 +48,7 @@ const customStylesPwa = {
 
 export default function HomeScreen() {
 
+    const { setPainSelected } = useServiceState();
     const { voucher } = useUserState();
     const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -55,6 +57,7 @@ export default function HomeScreen() {
     useEffect(() => {
         setLoading(true);
         onInit();
+        setPainSelected([])
     }, [])
 
 

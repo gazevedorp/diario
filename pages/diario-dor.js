@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import Router from 'next/router';
 
+import { useServiceState } from '../services/serviceState';
 import { parseISO, format, addSeconds } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import api from '../services/api';
@@ -44,7 +45,9 @@ const customStyles = {
     },
 };
 
-export default function DiarioDor() {
+export default function DiarioDor(props) {
+
+    const { painSelected, setPainSelected } = useServiceState();
     const [step, setStep] = useState(1);
     const [textButton, setTextButton] = useState(["ADICIONAR", "CANCELAR"]);
     const [data, setData] = useState(format(new Date(), 'yyyy-MM-dd'));
@@ -115,16 +118,14 @@ export default function DiarioDor() {
                                 start_time: data_inicio,
                                 end_time: data_fim,
                                 config: {
+                                    date: data_inicio,
                                     pain_location: {
-                                        date: data_inicio,
-                                        pain_location: {
-                                            lateral_direito: option1,
-                                            lateral_esquerdo: option2,
-                                            testa_topo_cranio: option3,
-                                            frontal_nuca: option4,
-                                            frontal_atras_olho: option5,
-                                            posterior_cabeca: option6
-                                        }
+                                        lateral_direito: option1,
+                                        lateral_esquerdo: option2,
+                                        testa_topo_cranio: option3,
+                                        frontal_nuca: option4,
+                                        frontal_atras_olho: option5,
+                                        posterior_cabeca: option6
                                     },
                                     symptoms: {
                                         esforco_piora: symptom.filter(item => item === "Esforço piora").length > 0 ? true : false,
@@ -139,7 +140,8 @@ export default function DiarioDor() {
                                     },
                                     triggers: trigger && triggerEffect !== "" ? triggerEffect : trigger,
                                     medicine_in_crisis: drug && drugName !== "" ? drugName : drug,
-                                    result: result
+                                    result: result,
+                                    origin: "pwa"
                                 }
                             }
                             );
@@ -151,20 +153,18 @@ export default function DiarioDor() {
                         }
                         else {
                             const { data } = await api.put(`/dor/${newId}`, {
-                                date: data_inicio_temp,
-                                start_time: data_inicio_temp,
-                                end_time: data_fim_temp,
+                                date: data_inicio,
+                                start_time: data_inicio,
+                                end_time: data_fim,
                                 config: {
+                                    date: data_inicio,
                                     pain_location: {
-                                        date: data_inicio_temp,
-                                        pain_location: {
-                                            lateral_direito: option1,
-                                            lateral_esquerdo: option2,
-                                            testa_topo_cranio: option3,
-                                            frontal_nuca: option4,
-                                            frontal_atras_olho: option5,
-                                            posterior_cabeca: option6
-                                        }
+                                        lateral_direito: option1,
+                                        lateral_esquerdo: option2,
+                                        testa_topo_cranio: option3,
+                                        frontal_nuca: option4,
+                                        frontal_atras_olho: option5,
+                                        posterior_cabeca: option6
                                     },
                                     symptoms: {
                                         esforco_piora: symptom.filter(item => item === "Esforço piora").length > 0 ? true : false,
@@ -179,7 +179,8 @@ export default function DiarioDor() {
                                     },
                                     triggers: trigger && triggerEffect !== "" ? triggerEffect : trigger,
                                     medicine_in_crisis: drug && drugName !== "" ? drugName : drug,
-                                    result: result
+                                    result: result,
+                                    origin: "pwa"
                                 }
                             }
                             );
@@ -191,6 +192,7 @@ export default function DiarioDor() {
                     }
                     catch (e) {
                         if (!e.response) {
+                            console.log(e)
                             const error = 'Verifique sua conexão com a internet!'
                             return Promise.reject(error)
                         }
@@ -292,6 +294,53 @@ export default function DiarioDor() {
             }
         }
     }
+
+    function addZero(i) {
+        if (i < 10) { i = "0" + i }
+        return i;
+    }
+
+    const onInit = () => {
+        if (painSelected.length !== 0) {
+            console.log(painSelected)
+
+            var start_hour = addZero(new Date(painSelected.start_time).getUTCHours());
+            var start_minute = addZero(new Date(painSelected.start_time).getUTCMinutes());
+            var end_hour = addZero(new Date(painSelected.end_time).getUTCHours());
+            var end_minute = addZero(new Date(painSelected.end_time).getUTCMinutes());
+
+            setData(format(new Date(painSelected.start_time), 'yyyy-MM-dd'));
+            setHour([`${start_hour}:${start_minute}`, `${end_hour}:${end_minute}`]);
+            setOption1(painSelected.config.pain_location.lateral_direito);
+            setOption2(painSelected.config.pain_location.lateral_esquerdo);
+            setOption3(painSelected.config.pain_location.testa_topo_cranio);
+            setOption4(painSelected.config.pain_location.frontal_nuca);
+            setOption5(painSelected.config.pain_location.frontal_atras_olho);
+            setOption6(painSelected.config.pain_location.posterior_cabeca);
+            setTrigger(painSelected.config.triggers === true ? true : painSelected.config.triggers === false ? false : true);
+            setTriggerEffect(painSelected.config.triggers === true ? "" : painSelected.config.triggers === false ? "" : painSelected.config.triggers);
+            setDrug(painSelected.config.medicine_in_crisis === true ? true : painSelected.config.medicine_in_crisis === false ? false : true);
+            setDrugName(painSelected.config.medicine_in_crisis === true ? "" : painSelected.config.medicine_in_crisis === false ? "" : painSelected.config.medicine_in_crisis);
+            setResult(painSelected.config.result);
+            
+            painSelected.config.symptoms.aura === true ? symptom.push("Aura") : {}
+            painSelected.config.symptoms.barulho_piora === true ? symptom.push("Barulho piora") : {}
+            painSelected.config.symptoms.esforco_piora === true ? symptom.push("Esforço piora") : {}
+            painSelected.config.symptoms.latejante === true ? symptom.push("Latejante") : {}
+            painSelected.config.symptoms.luz_piora === true ? symptom.push("Luz piora") : {}
+            painSelected.config.symptoms.menstruacao === true ? symptom.push("Menstruação") : {}
+            painSelected.config.symptoms.nauseas === true ? symptom.push("Náuseas") : {}
+            painSelected.config.symptoms.peso_aperto === true ? symptom.push("Peso aperto") : {}
+            painSelected.config.symptoms.vomito === true ? symptom.push("Vômito") : {}
+
+            setStep(6);
+            setTextButton(["ADICIONAR"]);
+        }
+    }
+
+    useEffect(() => {
+        onInit();
+    }, [])
 
     return (
         <>

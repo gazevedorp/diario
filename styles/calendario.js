@@ -60,7 +60,7 @@ export const Description = styled.p`
 
 export const DivCalendar = styled.div`
     padding: 20px;
-    margin-top: 25px;
+    margin-top: 10px;
     width: 90vw;
     display: flex;
     justify-content: center;
@@ -75,3 +75,29 @@ export const HeaderPageImage = styled.img`
     margin-top: 20px;
     width: 100px;
 `
+
+export const DivDescription = styled.div`
+    width: 80%;
+    justify-content: flex-start;
+    padding-bottom: 30px;
+
+    @media(min-width: 600px) {
+        width: 50vw;
+    }
+`
+
+export const ButtonModal = styled.button`
+    width: 90%;
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+
+    color: ${props => props.border ? "darkred" : "black"};
+    background-color: white;
+    border: ${props => props.border ? "1px solid" : 0}px;
+    border-color: darkred;
+`;
