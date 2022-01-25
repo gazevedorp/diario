@@ -125,8 +125,8 @@ export default function Calendario() {
                                         result.config.pain_location.posterior_cabeca === 1 ||
                                         result.config.pain_location.testa_topo_cranio === 1
                                 ).length > 0 &&
-                                    qty.filter(item => item.date === date && item.type === "leve").length === 0 && qty.push({ date: date, type: "leve" }),
-                                    < div style={{ width: 5, height: 5, backgroundColor: "green", borderRadius: 30 }} />
+                                    ((qty.filter(item => item.date === date && item.type === "leve").length === 0 && qty.push({ date: date, type: "leve" })),
+                                        < div style={{ width: 5, height: 5, backgroundColor: "green", borderRadius: 30 }} />)
                                 }
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(
                                     result =>
@@ -137,8 +137,8 @@ export default function Calendario() {
                                         result.config.pain_location.posterior_cabeca === 2 ||
                                         result.config.pain_location.testa_topo_cranio === 2
                                 ).length > 0 &&
-                                    qty.filter(item => item.date === date && item.type === "moderada").length === 0 && qty.push({ date: date, type: "moderada" }),
-                                    <div style={{ width: 5, height: 5, backgroundColor: "darkorange", borderRadius: 30 }} />
+                                    ((qty.filter(item => item.date === date && item.type === "moderada").length === 0 && qty.push({ date: date, type: "moderada" })),
+                                    <div style={{ width: 5, height: 5, backgroundColor: "darkorange", borderRadius: 30 }} />)
                                 }
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(
                                     result =>
@@ -149,8 +149,8 @@ export default function Calendario() {
                                         result.config.pain_location.posterior_cabeca === 3 ||
                                         result.config.pain_location.testa_topo_cranio === 3
                                 ).length > 0 &&
-                                    qty.filter(item => item.date === date && item.type === "forte").length === 0 && qty.push({ date: date, type: "forte" }),
-                                    <div style={{ width: 5, height: 5, backgroundColor: "red", borderRadius: 30 }} />
+                                    ((qty.filter(item => item.date === date && item.type === "forte").length === 0 && qty.push({ date: date, type: "forte" })),
+                                    <div style={{ width: 5, height: 5, backgroundColor: "red", borderRadius: 30 }} />)
                                 }
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(result => result.config.symptoms.menstruacao === true).length > 0 && <div style={{ width: 5, height: 5, backgroundColor: "blue", borderRadius: 30 }} />}
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(result => result.config.triggers === true).length > 0 && <div style={{ width: 5, height: 5, backgroundColor: "brown", borderRadius: 30 }} />}
