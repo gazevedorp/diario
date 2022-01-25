@@ -322,6 +322,7 @@ export default function DiarioDor(props) {
             setDrug(painSelected.config.medicine_in_crisis === true ? true : painSelected.config.medicine_in_crisis === false ? false : true);
             setDrugName(painSelected.config.medicine_in_crisis === true ? "" : painSelected.config.medicine_in_crisis === false ? "" : painSelected.config.medicine_in_crisis);
             setResult(painSelected.config.result);
+            setNewId(painSelected.id)
             
             painSelected.config.symptoms.aura === true ? symptom.push("Aura") : {}
             painSelected.config.symptoms.barulho_piora === true ? symptom.push("Barulho piora") : {}
