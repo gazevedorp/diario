@@ -58,9 +58,9 @@ export default function Calendario() {
     }
 
     const handleClick = async (value) => {
-        setDateSelected(value)
         const temp = dataValue[format(value, 'yyyy-MM-dd')]
         if (temp) {
+            setDateSelected(value)
             setStartDate(format(value, 'dd/MM/yyyy'))
             setDataTemp(temp)
             setIsOpen(true);
@@ -138,7 +138,7 @@ export default function Calendario() {
                                         result.config.pain_location.testa_topo_cranio === 2
                                 ).length > 0 &&
                                     ((qty.filter(item => item.date === date && item.type === "moderada").length === 0 && qty.push({ date: date, type: "moderada" })),
-                                    <div style={{ width: 5, height: 5, backgroundColor: "darkorange", borderRadius: 30 }} />)
+                                        <div style={{ width: 5, height: 5, backgroundColor: "darkorange", borderRadius: 30 }} />)
                                 }
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(
                                     result =>
@@ -150,7 +150,7 @@ export default function Calendario() {
                                         result.config.pain_location.testa_topo_cranio === 3
                                 ).length > 0 &&
                                     ((qty.filter(item => item.date === date && item.type === "forte").length === 0 && qty.push({ date: date, type: "forte" })),
-                                    <div style={{ width: 5, height: 5, backgroundColor: "red", borderRadius: 30 }} />)
+                                        <div style={{ width: 5, height: 5, backgroundColor: "red", borderRadius: 30 }} />)
                                 }
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(result => result.config.symptoms.menstruacao === true).length > 0 && <div style={{ width: 5, height: 5, backgroundColor: "blue", borderRadius: 30 }} />}
                                 {dataValue[format(date, 'yyyy-MM-dd')].filter(result => result.config.triggers === true).length > 0 && <div style={{ width: 5, height: 5, backgroundColor: "brown", borderRadius: 30 }} />}
