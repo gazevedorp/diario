@@ -162,6 +162,9 @@ export default function DiarioAlimentacao() {
             const { data } = await api.get(`/calc?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour[0]}&calc=${JSON.stringify(foodRegister)}`)
 
             if (data) {
+                const response = await api.get(`/calc-save?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour[0]}&calc=${JSON.stringify(foodRegister)}`)
+                console.log(response)
+
                 console.log(data)
                 setCalories(data.total)
                 setIntensity(data.intensity)
@@ -376,7 +379,7 @@ export default function DiarioAlimentacao() {
                             foodRegister.map(item =>
                                 <div key={item} style={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between' }}>
                                     <p>{item.foodSelected} </p>
-                                    <p style={{ textAlign: "right" }}>{item.m} {medidas.filter( i => i.value == item.q).map( i => { return i.label})}</p>
+                                    <p style={{ textAlign: "right" }}>{item.m} {medidas.filter(i => i.value == item.q).map(i => { return i.label })}</p>
                                 </div>
                             )
                         }
