@@ -65,11 +65,13 @@ export default function DiarioExercicio() {
         const DateTemp1 = `${data} ${hour[0]}:00`
         const DateTemp2 = `${data} ${hour[1]}:00`
 
-        var DateTempFormat1 = new Date(DateTemp1.replace(/ /g,"T"))
-        var DateTempFormat2 = new Date(DateTemp2.replace(/ /g,"T"))
+        const dataTemp = data;
+
+        var DateTempFormat1 = new Date(DateTemp1.replace(/ /g, "T"))
+        var DateTempFormat2 = new Date(DateTemp2.replace(/ /g, "T"))
 
         const time = Math.abs(DateTempFormat2 - DateTempFormat1) / 36e5
-        
+
         const totaltime = time * 60;
 
         const sexTemp = sex === "Masculino" ? "male" : "female";
@@ -78,6 +80,9 @@ export default function DiarioExercicio() {
             const { data } = await api.get(`/calc2?gender=${sexTemp}&age=${age}&weight=${weight}&minute=${totaltime}&activity=${activity}`)
 
             if (data) {
+                const response = await api.get(`https://api.diariodaenxaqueca.com.br/api/calc-save2?id_user=${user.id}&gender=${sexTemp}&date=${dataTemp}&hour_start=${hour[0]}&hour_end=${hour[1]}&type=${type}&intensity=${data.intensity}&activity=${activity}&age=${age}&weight=${weight}`)
+                console.log("response: ", response)
+
                 console.log(data)
                 setCalories(data.calories)
                 setIntensity(data.intensity)
