@@ -190,7 +190,7 @@ export default function Calendario() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div>
+                <div >
                     <h3 style={{ color: "#7f30af" }}>Selecione a dor</h3>
                     <h4 style={{ color: "gray", marginTop: 5, marginBottom: 10 }}>{startDate}</h4>
                     <p style={{ textAlign: "center", color: "gray" }}>Registradas {qty.filter(item => item.date === dateSelected).length} intensidades de dor nesta data</p>
@@ -326,7 +326,10 @@ export default function Calendario() {
                         )
                     })}
                     <ButtonModal border onClick={() => {
-                        setIsOpen(false)
+                        setDateSelected("")
+                        setStartDate("")
+                        setDataTemp([])
+                        setIsOpen(false);
                     }}>FECHAR</ButtonModal>
                 </div>
             </Modal>

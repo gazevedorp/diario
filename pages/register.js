@@ -129,7 +129,6 @@ export default function Register() {
                 }
             }
             else {
-                console.log("Error: ", error)
                 toast.error("Você precisa aceitar os termos de uso!");
             }
         },

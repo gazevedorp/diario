@@ -15,6 +15,7 @@ export default createGlobalStyle`
     .menu {
         height: 100vh;
         padding: 10px 0px 0px 0px;
+        z-index: 10;
 
         background-color: #ffffff;
     }

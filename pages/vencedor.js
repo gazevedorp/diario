@@ -43,7 +43,7 @@ export default function Vencedor() {
                 <HeaderPageTitle>
                     AO PACIENTE
                 </HeaderPageTitle>
-                <HeaderPageImage src="/vencedor.png" />
+                <HeaderPageImage src="Home/Prog_vencedor.png" />
             </HeaderPage>
             <DivText>
                 <Description>
