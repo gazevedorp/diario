@@ -37,6 +37,7 @@ export default function Calendario() {
     const [dataTemp, setDataTemp] = useState([])
     const [dateSelected, setDateSelected] = useState("")
     const [qty, setQty] = useState([])
+    const [loading, setLoading] = useState(false);
 
     const customStyles = {
         content: {
@@ -48,11 +49,13 @@ export default function Calendario() {
     };
 
     const onInit = async (value1, value2) => {
+        setLoading(true)
         console.log(value1)
         axios.get(`https://diariodaenxaqueca-api.k8s.diariodaenxaqueca.com.br/calendar?id=${user.id}&start=${value1}&end=${value2}`)
             .then((data) => {
                 console.log(data.data.data)
                 setDataValue(data.data.data)
+                setLoading(false)
             })
             .catch((error) => console.log(error))
     }
@@ -106,6 +109,7 @@ export default function Calendario() {
                 <HeaderPageImage src="/menu-icon-calendar.png" />
             </HeaderPage>
             <DivCalendar>
+                <div style={{display: loading ? "none" : "block"}}>
                 <Calendar
                     locale="pt-BR"
                     onClickDay={value => handleClick(value)}
@@ -158,6 +162,10 @@ export default function Calendario() {
                         </>
                         : null}
                 />
+                </div>
+                <div style={{display: loading ? "flex" : "none", justifyContent: "center", alignItems: "center", height: 300}}>
+                    <p>Carregando...</p>
+                </div>
             </DivCalendar>
             <DivDescription>
                 <p style={{ fontSize: 10, marginBottom: 5, fontWeight: "bold" }}>
