@@ -159,10 +159,10 @@ export default function DiarioAlimentacao() {
 
         try {
             console.log(foodRegister)
-            const { data } = await api.get(`/calc?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour[0]}&calc=${JSON.stringify(foodRegister)}`)
+            const { data } = await api.get(`/calc?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour}&calc=${JSON.stringify(foodRegister)}`)
 
             if (data) {
-                const response = await api.get(`/calc-save?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour[0]}&calc=${JSON.stringify(foodRegister)}`)
+                const response = await api.get(`/calc-save?id_user=${user.id}&date=${dateTemp}&type=${typeTemp}&hour_start=${hour}&calc=${JSON.stringify(foodRegister)}`)
                 console.log(response)
 
                 console.log(data)
