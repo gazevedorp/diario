@@ -82,7 +82,10 @@ export const DivDescription = styled.div`
     padding-bottom: 30px;
 
     @media(min-width: 600px) {
-        width: 50vw;
+        width: 40vw;
+    }
+    @media(min-width: 1000px) {
+        width: 30vw;
     }
 `
 
