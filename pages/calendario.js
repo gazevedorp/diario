@@ -109,7 +109,7 @@ export default function Calendario() {
                 <HeaderPageImage src="/menu-icon-calendar.png" />
             </HeaderPage>
             <DivCalendar>
-                <div style={{display: loading ? "none" : "block"}}>
+                <div style={{display: loading ? "none" : "block", width: "100%"}}>
                 <Calendar
                     locale="pt-BR"
                     onClickDay={value => handleClick(value)}
