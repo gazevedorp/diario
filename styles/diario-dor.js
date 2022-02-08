@@ -277,6 +277,10 @@ export const Option = styled.button`
     color: ${props => props.value ? "#ffffff" : "#000000"};
     border: 1px solid darkorange;
     cursor: pointer;
+
+    img{
+        width: 10px;
+    }
 `
 
 export const Buttons = styled.div`

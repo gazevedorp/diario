@@ -323,7 +323,7 @@ export default function DiarioDor(props) {
             setDrugName(painSelected.config.medicine_in_crisis === true ? "" : painSelected.config.medicine_in_crisis === false ? "" : painSelected.config.medicine_in_crisis);
             setResult(painSelected.config.result);
             setNewId(painSelected.id)
-            
+
             painSelected.config.symptoms.aura === true ? symptom.push("Aura") : {}
             painSelected.config.symptoms.barulho_piora === true ? symptom.push("Barulho piora") : {}
             painSelected.config.symptoms.esforco_piora === true ? symptom.push("Esforço piora") : {}
@@ -390,39 +390,75 @@ export default function DiarioDor(props) {
                         <h5>Clique no círculo</h5>
                         <br />
                         <div>
-                            <Option value={option1 === 1 && option1} onClick={() => setOption1(1)}>1</Option>
-                            <Option value={option1 === 2 && option1} onClick={() => setOption1(2)}>2</Option>
-                            <Option value={option1 === 3 && option1} onClick={() => setOption1(3)}>3</Option>
+                            <Option value={option1 === 1 && option1} onClick={() => setOption1(1)}>
+                                {option1 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option1 === 2 && option1} onClick={() => setOption1(2)}>
+                                {option1 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option1 === 3 && option1} onClick={() => setOption1(3)}>
+                                {option1 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>LATERAL DIREITO</p>
                         </div>
                         <div>
-                            <Option value={option2 === 1 && option2} onClick={() => setOption2(1)}>1</Option>
-                            <Option value={option2 === 2 && option2} onClick={() => setOption2(2)}>2</Option>
-                            <Option value={option2 === 3 && option2} onClick={() => setOption2(3)}>3</Option>
+                            <Option value={option2 === 1 && option2} onClick={() => setOption2(1)}>
+                                {option2 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option2 === 2 && option2} onClick={() => setOption2(2)}>
+                                {option2 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option2 === 3 && option2} onClick={() => setOption2(3)}>
+                                {option2 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>LATERAL ESQUERDO</p>
                         </div>
                         <div>
-                            <Option value={option3 === 1 && option3} onClick={() => setOption3(1)}>1</Option>
-                            <Option value={option3 === 2 && option3} onClick={() => setOption3(2)}>2</Option>
-                            <Option value={option3 === 3 && option3} onClick={() => setOption3(3)}>3</Option>
+                            <Option value={option3 === 1 && option3} onClick={() => setOption3(1)}>
+                                {option3 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option3 === 2 && option3} onClick={() => setOption3(2)}>
+                                {option3 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option3 === 3 && option3} onClick={() => setOption3(3)}>
+                                {option3 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>TESTA E TOPO DO CRÂNIO</p>
                         </div>
                         <div>
-                            <Option value={option4 === 1 && option4} onClick={() => setOption4(1)}>1</Option>
-                            <Option value={option4 === 2 && option4} onClick={() => setOption4(2)}>2</Option>
-                            <Option value={option4 === 3 && option4} onClick={() => setOption5(3)}>3</Option>
+                            <Option value={option4 === 1 && option4} onClick={() => setOption4(1)}>
+                                {option4 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option4 === 2 && option4} onClick={() => setOption4(2)}>
+                                {option4 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option4 === 3 && option4} onClick={() => setOption4(3)}>
+                                {option4 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>FRONTAL NUCA</p>
                         </div>
                         <div>
-                            <Option value={option5 === 1 && option5} onClick={() => setOption5(1)}>1</Option>
-                            <Option value={option5 === 2 && option5} onClick={() => setOption5(2)}>2</Option>
-                            <Option value={option5 === 3 && option5} onClick={() => setOption5(3)}>3</Option>
+                            <Option value={option5 === 1 && option5} onClick={() => setOption5(1)}>
+                                {option5 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option5 === 2 && option5} onClick={() => setOption5(2)}>
+                                {option5 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option5 === 3 && option5} onClick={() => setOption5(3)}>
+                                {option5 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>FRONTAL ATRÁS DO OLHO</p>
                         </div>
                         <div>
-                            <Option value={option6 === 1 && option6} onClick={() => setOption6(1)}>1</Option>
-                            <Option value={option6 === 2 && option6} onClick={() => setOption6(2)}>2</Option>
-                            <Option value={option6 === 3 && option6} onClick={() => setOption6(3)}>3</Option>
+                            <Option value={option6 === 1 && option6} onClick={() => setOption6(1)}>
+                                {option6 === 1 ? <img src='/raio.png' /> : "1"}
+                            </Option>
+                            <Option value={option6 === 2 && option6} onClick={() => setOption6(2)}>
+                                {option6 === 2 ? <img src='/raio.png' /> : "2"}
+                            </Option>
+                            <Option value={option6 === 3 && option6} onClick={() => setOption6(3)}>
+                                {option6 === 3 ? <img src='/raio.png' /> : "3"}
+                            </Option>
                             <p>PARTE POSTERIOR DA CABEÇA</p>
                         </div>
                         <br />
