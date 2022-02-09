@@ -339,6 +339,18 @@ export default function DiarioDor(props) {
         }
     }
 
+    const intensityColor = (value) => {
+        if (value === 1) {
+            return <div style={{ width: 8, height: 8, backgroundColor: "green", borderRadius: 30 }} />
+        }
+        else if (value === 2) {
+            return <div style={{ width: 8, height: 8, backgroundColor: "darkorange", borderRadius: 30 }} />
+        }
+        else {
+            return <div style={{ width: 8, height: 8, backgroundColor: "red", borderRadius: 30 }} />
+        }
+    }
+
     useEffect(() => {
         onInit();
     }, [])
@@ -609,24 +621,66 @@ export default function DiarioDor(props) {
                         <p>Periodo: <b>{hour[0]} - {hour[1]}</b></p>
                         <p>Localização: </p>
                         {
-                            <div>
-                                <p>{option1 !== 0 ? "LATERAL DIREITO" : null}</p>
-                                <p>{option2 !== 0 ? "LATERAL ESQUERDO" : null}</p>
-                                <p>{option3 !== 0 ? "TESTA E TOPO DO CRÂNIO" : null}</p>
-                                <p>{option4 !== 0 ? "FRONTAL NUCA" : null}</p>
-                                <p>{option5 !== 0 ? "FRONTAL ATRÁS DO OLHO" : null}</p>
-                                <p>{option6 !== 0 ? "PARTE POSTERIOR DA CABEÇA" : null}</p>
+                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                <div style={{marginLeft: 80}}>
+                                    {option1 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option1)}
+                                            <p>LATERAL DIREITO</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <div style={{marginLeft: 80}}>
+                                    {option2 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option2)}
+                                            <p>LATERAL ESQUERDO</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <div style={{marginLeft: 80}}>
+                                    {option3 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option3)}
+                                            <p>TESTA E TOPO DO CRÂNIO</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <div style={{marginLeft: 80}}>
+                                    {option4 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option4)}
+                                            <p>FRONTAL NUCA</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <div style={{marginLeft: 80}}>
+                                    {option5 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option5)}
+                                            <p>FRONTAL ATRÁS DO OLHO</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <div style={{marginLeft: 80}}>
+                                    {option6 !== 0 ?
+                                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            {intensityColor(option6)}
+                                            <p>PARTE POSTERIOR DA CABEÇA</p>
+                                        </div>
+                                        : null}
+                                </div>
                             </div>
                         }
-                        <p>Sintomas:</p>
+                        <p style={{margin: 0, padding: 0}}>Sintomas:</p>
                         {
                             symptom.map(item =>
-                                <div key={item}>
-                                    <p>{item}</p>
+                                <div  key={item}>
+                                    <p style={{marginLeft: 80}}>{item}</p>
                                 </div>
                             )
                         }
-                        <p>Desencadeantes: <b>{trigger && triggerEffect ? triggerEffect : trigger ? "Sim" : "Não"}</b></p>
+                        <p style={{marginTop: 5}}>Desencadeantes: <b>{trigger && triggerEffect ? triggerEffect : trigger ? "Sim" : "Não"}</b></p>
                         <p>Medicamentos na crise: <b>{drug && drugName ? drugName : drug ? "Sim" : "Não"}</b></p>
                         <p>Resultado: <b>{result}</b></p>
                         <div className="footer">
@@ -662,7 +716,7 @@ export default function DiarioDor(props) {
                         </Button>
                     }
                 </Buttons>
-            </Container>
+            </Container >
             <Modal
                 isOpen={modalTrigger}
                 onRequestClose={() => setModalTrigger(false)}

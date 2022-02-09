@@ -234,13 +234,10 @@ export const ContentStepSix = styled.div`
         font-size: 14px;
         padding: 0px 2px 10px 2px;
     }
-    div{
-        margin: -10px 0px 15px 0px;
-    }
     div p {
-        margin-left: 80px;
+        margin-left: 5px;
         font-weight: bold;
-        font-size: 12PX;
+        font-size: 12px;
         padding: 0px;
     }
 
